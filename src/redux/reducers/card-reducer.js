@@ -3,7 +3,7 @@ export default function cardReducer(state = [], action) {
   //https://redux.js.org/recipes/structuring-reducers/normalizing-state-shape
   switch (action.type) {
     case "CREATE_CARD":
-      return [...state, { ...action.course }];
+      return [...state, { ...action.card }];
     default:
       return state;
   }

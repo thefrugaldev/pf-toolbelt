@@ -3,13 +3,20 @@ import { render } from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 //Components
-import App from "./components/App";
+import App from "./components/app";
+//Redux
+import configureStore from "./redux/configure-store";
+import { Provider as ReduxProvider } from "react-redux";
 //Styles
 import "./index.scss";
 
+const store = configureStore();
+
 render(
-  <Router>
-    <App />
-  </Router>,
+  <ReduxProvider store={store}>
+    <Router>
+      <App />
+    </Router>
+  </ReduxProvider>,
   document.getElementById("app")
 );

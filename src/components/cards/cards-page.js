@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as cardActions from "../../redux/actions/card-actions";
 
-const CardsPage = ({ dispatch, cards }) => {
+const CardsPage = ({ createCard, cards }) => {
   const [card, setCard] = useState({ vendor: "" });
 
   const handleChange = event => {
@@ -14,7 +14,7 @@ const CardsPage = ({ dispatch, cards }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(cardActions.createCard(card));
+    createCard(card);
   };
 
   return (
@@ -33,7 +33,7 @@ const CardsPage = ({ dispatch, cards }) => {
 
 CardsPage.propTypes = {
   cards: PropTypes.array.isRequired,
-  dispatch: PropTypes.func.isRequired
+  createCard: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -42,4 +42,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(CardsPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    createCard: card => dispatch(cardActions.createCard(card))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardsPage);

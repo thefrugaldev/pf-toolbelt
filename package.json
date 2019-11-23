@@ -2,7 +2,10 @@
   "name": "pf-toolbelt",
   "description": "React application that provides all of the necessary tools to assist in personal finance",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --port 3000 --open 'Firefox'"
+    "start": "run-p start:dev start:api",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000 --open 'Firefox'",
+    "prestart:api": "node tools/create-mock-db.js",
+    "start:api": "node tools/api-server.js"
   },
   "dependencies": {
     "bootstrap": "4.3.1",
@@ -31,6 +34,7 @@
     "html-webpack-plugin": "3.2.0",
     "jest": "24.5.0",
     "json-server": "^0.15.1",
+    "npm-run-all": "^4.1.5",
     "postcss-loader": "^3.0.0",
     "redux-immutable-state-invariant": "2.1.0",
     "sass-loader": "^8.0.0",

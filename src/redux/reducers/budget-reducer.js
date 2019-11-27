@@ -6,6 +6,8 @@ export default function budgetReducer(state = [], action) {
   switch (action.type) {
     case actionTypes.CREATE_BUDGET:
       return [...state, { ...action.budget }];
+    case actionTypes.LOAD_BUDGETS_SUCCESS:
+      return action.budgets;
     default:
       return state;
   }

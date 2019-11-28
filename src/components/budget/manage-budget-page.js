@@ -2,13 +2,19 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 //Redux
 import { connect } from "react-redux";
-import { loadBudgets } from "../../redux/actions/budget-actions";
+import { loadBudgets, saveBudget } from "../../redux/actions/budget-actions";
 import { loadUsers } from "../../redux/actions/user-actions";
 //Components
 import BudgetForm from "./budget-form";
 import { newBudget } from "../../../tools/mock-budgets";
 
-const ManageBudgetPage = ({ users, loadBudgets, loadUsers, ...props }) => {
+const ManageBudgetPage = ({
+  users,
+  loadBudgets,
+  loadUsers,
+  saveBudget,
+  ...props
+}) => {
   const [budget, setBudget] = useState({ ...props.budget });
   const [errors, setErrors] = useState({});
 
@@ -31,6 +37,11 @@ const ManageBudgetPage = ({ users, loadBudgets, loadUsers, ...props }) => {
     }));
   };
 
+  const handleSave = event => {
+    event.preventDefault();
+    saveBudget(budget);
+  };
+
   return (
     <>
       <BudgetForm
@@ -38,6 +49,7 @@ const ManageBudgetPage = ({ users, loadBudgets, loadUsers, ...props }) => {
         errors={errors}
         users={users}
         onChange={handleChange}
+        onSave={handleSave}
       />
     </>
   );
@@ -48,7 +60,8 @@ ManageBudgetPage.propTypes = {
   budgets: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,
-  loadUsers: PropTypes.func.isRequired
+  loadUsers: PropTypes.func.isRequired,
+  saveBudget: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ budgets, users }) => {
@@ -60,6 +73,7 @@ const mapStateToProps = ({ budgets, users }) => {
 };
 
 const mapDispatchToProps = {
+  saveBudget,
   loadBudgets,
   loadUsers
 };

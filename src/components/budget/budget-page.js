@@ -3,14 +3,18 @@ import PropTypes from "prop-types";
 //Redux
 import { connect } from "react-redux";
 import * as budgetActions from "../../redux/actions/budget-actions";
+import * as userActions from "../../redux/actions/user-actions";
 import { bindActionCreators } from "redux";
 //Components
 import BudgetList from "./budget-list";
 
-const BudgetPage = ({ budgets, actions }) => {
+const BudgetPage = ({ budgets, users, actions }) => {
   useEffect(() => {
     actions.loadBudgets().catch(error => {
       alert(`Loading budgets failed ${error}`);
+    });
+    actions.loadUsers().catch(error => {
+      alert(`Loading users failed ${error}`);
     });
   }, []);
 
@@ -24,18 +28,31 @@ const BudgetPage = ({ budgets, actions }) => {
 
 BudgetPage.propTypes = {
   budgets: PropTypes.array.isRequired,
+  users: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ budgets }) => {
+const mapStateToProps = ({ budgets, users }) => {
   return {
-    budgets
+    budgets:
+      users.length === 0
+        ? []
+        : budgets.map(budget => {
+            return {
+              ...budget,
+              userName: users.find(u => u.id === budget.userId).name
+            };
+          }),
+    users
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    actions: bindActionCreators(budgetActions, dispatch)
+    actions: {
+      loadBudgets: bindActionCreators(budgetActions.loadBudgets, dispatch),
+      loadUsers: bindActionCreators(userActions.loadUsers, dispatch)
+    }
   };
 };
 

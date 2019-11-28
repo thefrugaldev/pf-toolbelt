@@ -19,7 +19,7 @@ const BudgetList = ({ budgets }) => {
               <td>{budget.title}</td>
               <td>{budget.category}</td>
               <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>
-              <td>{budget.userId}</td>
+              <td>{budget.userName}</td>
             </tr>
           );
         })}

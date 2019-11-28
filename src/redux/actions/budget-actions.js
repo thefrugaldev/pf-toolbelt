@@ -1,12 +1,16 @@
 import * as actionTypes from "./action-type-constants";
 import * as budgetApi from "../../api/budget-api";
 
-export function createBudget(budget) {
-  return { type: actionTypes.CREATE_BUDGET, budget };
-}
-
 export function loadBudgetsSuccess(budgets) {
   return { type: actionTypes.LOAD_BUDGETS_SUCCESS, budgets };
+}
+
+export function createBudgetSuccess(budget) {
+  return { type: actionTypes.CREATE_BUDGET_SUCCESS, budget };
+}
+
+export function updateBudgetSuccess(budget) {
+  return { type: actionTypes.UPDATE_BUDGET_SUCCESS, budget };
 }
 
 export function loadBudgets() {
@@ -15,6 +19,21 @@ export function loadBudgets() {
       .getBudgets()
       .then(budgets => {
         dispatch(loadBudgetsSuccess(budgets));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function saveBudget(budget) {
+  return (dispatch, getState) => {
+    return budgetApi
+      .saveBudget(budget)
+      .then(savedBudget => {
+        budget.id
+          ? dispatch(updateBudgetSuccess(savedBudget))
+          : dispatch(createBudgetSuccess(savedBudget));
       })
       .catch(error => {
         throw error;

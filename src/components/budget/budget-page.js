@@ -8,14 +8,16 @@ import { bindActionCreators } from "redux";
 //Components
 import BudgetList from "./budget-list";
 
-const BudgetPage = ({ budgets, users, actions }) => {
+const BudgetPage = ({ users, budgets, actions }) => {
   useEffect(() => {
     actions.loadBudgets().catch(error => {
       alert(`Loading budgets failed ${error}`);
     });
-    actions.loadUsers().catch(error => {
-      alert(`Loading users failed ${error}`);
-    });
+    if (users.length === 0) {
+      actions.loadUsers().catch(error => {
+        alert(`Loading users failed ${error}`);
+      });
+    }
   }, []);
 
   return (

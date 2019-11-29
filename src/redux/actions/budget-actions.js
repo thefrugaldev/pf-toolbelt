@@ -27,7 +27,9 @@ export function loadBudgets() {
 }
 
 export function saveBudget(budget) {
-  return (dispatch, getState) => {
+  // could use state directly from redux thunk's second param
+  // ex: return (dispatch, getState) => {
+  return dispatch => {
     return budgetApi
       .saveBudget(budget)
       .then(savedBudget => {

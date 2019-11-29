@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 //Redux
 import { connect } from "react-redux";
 import * as budgetActions from "../../redux/actions/budget-actions";
@@ -9,6 +10,7 @@ import { bindActionCreators } from "redux";
 import BudgetList from "./budget-list";
 
 const BudgetPage = ({ users, budgets, actions }) => {
+  const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
   useEffect(() => {
     actions.loadBudgets().catch(error => {
       alert(`Loading budgets failed ${error}`);
@@ -22,7 +24,16 @@ const BudgetPage = ({ users, budgets, actions }) => {
 
   return (
     <>
+      {redirectToAddCoursePage && <Redirect to="/budget" />}
       <h2>Budgets</h2>
+      <button
+        className="btn btn-primary add-course mb-20"
+        onClick={() => {
+          setRedirectToAddCoursePage(true);
+        }}
+      >
+        Add Budget
+      </button>
       <BudgetList budgets={budgets} />
     </>
   );

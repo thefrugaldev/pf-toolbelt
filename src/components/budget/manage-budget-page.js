@@ -9,25 +9,31 @@ import BudgetForm from "./budget-form";
 import { newBudget } from "../../../tools/mock-budgets";
 
 const ManageBudgetPage = ({
+  budgets,
   users,
   loadBudgets,
   loadUsers,
   saveBudget,
+  history,
   ...props
 }) => {
   const [budget, setBudget] = useState({ ...props.budget });
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    loadBudgets().catch(error => {
-      alert(`Loading budgets failed ${error}`);
-    });
+    if (budgets.length === 0) {
+      loadBudgets().catch(error => {
+        alert(`Loading budgets failed ${error}`);
+      });
+    } else {
+      setBudget({ ...props.budget });
+    }
     if (users.length === 0) {
       loadUsers().catch(error => {
         alert(`Loading users failed ${error}`);
       });
     }
-  }, []);
+  }, [props.budget]);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -39,7 +45,9 @@ const ManageBudgetPage = ({
 
   const handleSave = event => {
     event.preventDefault();
-    saveBudget(budget);
+    saveBudget(budget).then(() => {
+      history.push("/budgets");
+    });
   };
 
   return (
@@ -61,12 +69,21 @@ ManageBudgetPage.propTypes = {
   users: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,
   loadUsers: PropTypes.func.isRequired,
-  saveBudget: PropTypes.func.isRequired
+  saveBudget: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({ budgets, users }) => {
+export function getBudgetById(budgets, id) {
+  return budgets.find(budget => budget.id === parseInt(id)) || null;
+}
+
+const mapStateToProps = ({ budgets, users }, ownProps) => {
+  const id = ownProps.match.params.id;
+  const budget =
+    id && budgets.length > 0 ? getBudgetById(budgets, id) : newBudget;
+
   return {
-    budget: newBudget,
+    budget,
     budgets,
     users
   };

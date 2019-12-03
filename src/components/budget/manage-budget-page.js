@@ -7,6 +7,7 @@ import { loadUsers } from "../../redux/actions/user-actions";
 //Components
 import BudgetForm from "./budget-form";
 import { newBudget } from "../../../tools/mock-budgets";
+import Spinner from "../common/spinner";
 
 const ManageBudgetPage = ({
   budgets,
@@ -50,16 +51,16 @@ const ManageBudgetPage = ({
     });
   };
 
-  return (
-    <>
-      <BudgetForm
-        budget={budget}
-        errors={errors}
-        users={users}
-        onChange={handleChange}
-        onSave={handleSave}
-      />
-    </>
+  return users.length === 0 || budgets.length === 0 ? (
+    <Spinner />
+  ) : (
+    <BudgetForm
+      budget={budget}
+      errors={errors}
+      users={users}
+      onChange={handleChange}
+      onSave={handleSave}
+    />
   );
 };
 

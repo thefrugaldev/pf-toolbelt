@@ -8,8 +8,9 @@ import * as userActions from "../../redux/actions/user-actions";
 import { bindActionCreators } from "redux";
 //Components
 import BudgetList from "./budget-list";
+import Spinner from "../common/spinner";
 
-const BudgetPage = ({ users, budgets, actions }) => {
+const BudgetPage = ({ users, budgets, actions, loading }) => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
   useEffect(() => {
     actions.loadBudgets().catch(error => {
@@ -26,15 +27,21 @@ const BudgetPage = ({ users, budgets, actions }) => {
     <>
       {redirectToAddCoursePage && <Redirect to="/budget" />}
       <h2>Budgets</h2>
-      <button
-        className="btn btn-primary add-course mb-20"
-        onClick={() => {
-          setRedirectToAddCoursePage(true);
-        }}
-      >
-        Add Budget
-      </button>
-      <BudgetList budgets={budgets} />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <button
+            className="btn btn-primary add-course mb-20"
+            onClick={() => {
+              setRedirectToAddCoursePage(true);
+            }}
+          >
+            Add Budget
+          </button>
+          <BudgetList budgets={budgets} />
+        </>
+      )}
     </>
   );
 };
@@ -42,10 +49,11 @@ const BudgetPage = ({ users, budgets, actions }) => {
 BudgetPage.propTypes = {
   budgets: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ budgets, users }) => {
+const mapStateToProps = ({ budgets, users, apiCallsInProgress }) => {
   return {
     budgets:
       users.length === 0
@@ -56,7 +64,8 @@ const mapStateToProps = ({ budgets, users }) => {
               userName: users.find(u => u.id === budget.userId).name
             };
           }),
-    users
+    users,
+    loading: apiCallsInProgress > 0
   };
 };
 

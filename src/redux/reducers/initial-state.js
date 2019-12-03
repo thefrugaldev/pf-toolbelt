@@ -1,4 +1,5 @@
 export default {
   budgets: [],
-  users: []
+  users: [],
+  apiCallsInProgress: 0
 };

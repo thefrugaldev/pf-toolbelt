@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const BudgetList = ({ budgets }) => {
+const BudgetList = ({ budgets, onDeleteClick }) => {
   return (
     <table className="table">
       <thead>
@@ -11,6 +11,7 @@ const BudgetList = ({ budgets }) => {
           <th>Category</th>
           <th>Date</th>
           <th>User</th>
+          <th />
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,14 @@ const BudgetList = ({ budgets }) => {
               <td>{budget.category}</td>
               <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>
               <td>{budget.userName}</td>
+              <td>
+                <button
+                  className="btn btn-outline-danger"
+                  onClick={() => onDeleteClick(budget)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           );
         })}
@@ -32,7 +41,8 @@ const BudgetList = ({ budgets }) => {
 };
 
 BudgetList.propTypes = {
-  budgets: PropTypes.array.isRequired
+  budgets: PropTypes.array.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 };
 
 export default BudgetList;

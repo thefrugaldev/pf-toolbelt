@@ -13,6 +13,8 @@ export default function budgetReducer(state = initialState.budgets, action) {
       );
     case actionTypes.LOAD_BUDGETS_SUCCESS:
       return action.budgets;
+    case actionTypes.DELETE_BUDGET_OPTIMISTIC:
+      return state.filter(budget => budget.id !== action.budget.id);
     default:
       return state;
   }

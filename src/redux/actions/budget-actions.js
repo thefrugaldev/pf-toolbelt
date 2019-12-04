@@ -14,6 +14,10 @@ export function updateBudgetSuccess(budget) {
   return { type: actionTypes.UPDATE_BUDGET_SUCCESS, budget };
 }
 
+export function deleteBudgetOptimistic(budget) {
+  return { type: actionTypes.DELETE_BUDGET_OPTIMISTIC, budget };
+}
+
 export function loadBudgets() {
   return function(dispatch) {
     dispatch(beginApiCall());
@@ -45,5 +49,12 @@ export function saveBudget(budget) {
         dispatch(apiCallError(error));
         throw error;
       });
+  };
+}
+
+export function deleteBudget(budget) {
+  return function(dispatch) {
+    dispatch(deleteBudgetOptimistic(budget));
+    return budgetApi.deleteBudget(budget.id);
   };
 }

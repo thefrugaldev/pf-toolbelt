@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
 import * as budgetActions from "../../redux/actions/budget-actions";
@@ -23,6 +24,15 @@ const BudgetPage = ({ users, budgets, actions, loading }) => {
     }
   }, []);
 
+  const handleDeleteBudgetAsync = async budget => {
+    toast.success("Budget Deleted");
+    try {
+      await actions.deleteBudget(budget);
+    } catch (error) {
+      toast.error(`Delete Failed. ${error}`, { autoClose: false });
+    }
+  };
+
   return (
     <>
       {redirectToAddCoursePage && <Redirect to="/budget" />}
@@ -39,7 +49,10 @@ const BudgetPage = ({ users, budgets, actions, loading }) => {
           >
             Add Budget
           </button>
-          <BudgetList budgets={budgets} />
+          <BudgetList
+            onDeleteClick={handleDeleteBudgetAsync}
+            budgets={budgets}
+          />
         </>
       )}
     </>
@@ -73,7 +86,8 @@ const mapDispatchToProps = dispatch => {
   return {
     actions: {
       loadBudgets: bindActionCreators(budgetActions.loadBudgets, dispatch),
-      loadUsers: bindActionCreators(userActions.loadUsers, dispatch)
+      loadUsers: bindActionCreators(userActions.loadUsers, dispatch),
+      deleteBudget: bindActionCreators(budgetActions.deleteBudget, dispatch)
     }
   };
 };

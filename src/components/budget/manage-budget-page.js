@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
 import { loadBudgets, saveBudget } from "../../redux/actions/budget-actions";
@@ -20,6 +21,7 @@ const ManageBudgetPage = ({
 }) => {
   const [budget, setBudget] = useState({ ...props.budget });
   const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (budgets.length === 0) {
@@ -44,11 +46,32 @@ const ManageBudgetPage = ({
     }));
   };
 
+  const formIsValid = () => {
+    const { title, userId, category } = budget;
+    const errors = {};
+
+    if (!title) errors.title = "Title is required";
+    if (!userId) errors.user = "User is required";
+    if (!category) errors.category = "Category is required";
+
+    setErrors(errors);
+    // Form is valid if the errors object still has no properties
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSave = event => {
     event.preventDefault();
-    saveBudget(budget).then(() => {
-      history.push("/budgets");
-    });
+    if (!formIsValid()) return;
+    setSaving(true);
+    saveBudget(budget)
+      .then(() => {
+        toast.success("Budget Saved.");
+        history.push("/budgets");
+      })
+      .catch(error => {
+        setSaving(false);
+        setErrors({ onSave: error.message });
+      });
   };
 
   return users.length === 0 || budgets.length === 0 ? (
@@ -60,6 +83,7 @@ const ManageBudgetPage = ({
       users={users}
       onChange={handleChange}
       onSave={handleSave}
+      saving={saving}
     />
   );
 };

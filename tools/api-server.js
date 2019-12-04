@@ -35,7 +35,8 @@ server.use((req, res, next) => {
   next();
 });
 
-server.post("/budget/", function(req, res, next) {
+server.post("/budgets/", function(req, res, next) {
+  debugger;
   const error = validateBudget(req.body);
   if (error) {
     res.status(400).send(error);
@@ -65,7 +66,9 @@ function createSlug(value) {
 }
 
 function validateBudget(budget) {
+  debugger;
   if (!budget.title) return "Title is required.";
+  if (!budget.userId) return "User is required.";
   if (!budget.month) return "Month is required.";
   if (!budget.day) return "Day is required.";
   if (!budget.year) return "Year is required.";

@@ -9,9 +9,12 @@ export default function apiCallStatusReducer(
   state = initialState.apiCallsInProgress,
   action
 ) {
-  if (action.type == actionTypes.BEGIN_API_CALL) {
+  if (action.type === actionTypes.BEGIN_API_CALL) {
     return state + 1;
-  } else if (actionTypeendsInSuccess(action.type)) {
+  } else if (
+    action.type === actionTypes.API_CALL_ERROR ||
+    actionTypeendsInSuccess(action.type)
+  ) {
     return state - 1;
   }
 

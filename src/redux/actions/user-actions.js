@@ -1,6 +1,6 @@
 import * as actionTypes from "./action-type-constants";
 import * as userApi from "../../api/user-api";
-import { beginApiCall } from "./api-status-actions";
+import { beginApiCall, apiCallError } from "./api-status-actions";
 
 // export function createUser(user) {
 //   return { type: actionTypes.CREATE_USER, user };
@@ -20,6 +20,7 @@ export function loadUsers() {
         dispatch(loadUsersSuccess(user));
       })
       .catch(error => {
+        dispatch(apiCallError(error));
         throw error;
       });
   };

@@ -9,6 +9,14 @@ export function getBudgets() {
 }
 
 export function saveBudget(budget) {
+  if (!budget.month || !budget.day || !budget.year) {
+    const currentDate = new Date();
+
+    budget.day = currentDate.getDate();
+    budget.month = currentDate.getMonth() + 1; // Get month is zero-based
+    budget.year = currentDate.getFullYear();
+  }
+
   return fetch(baseUrl + (budget.id || ""), {
     method: budget.id ? "PUT" : "POST",
     headers: { "content-type": "application/json" },

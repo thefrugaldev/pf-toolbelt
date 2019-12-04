@@ -1,6 +1,6 @@
 import * as actionTypes from "./action-type-constants";
 import * as budgetApi from "../../api/budget-api";
-import { beginApiCall } from "./api-status-actions";
+import { beginApiCall, apiCallError } from "./api-status-actions";
 
 export function loadBudgetsSuccess(budgets) {
   return { type: actionTypes.LOAD_BUDGETS_SUCCESS, budgets };
@@ -23,6 +23,7 @@ export function loadBudgets() {
         dispatch(loadBudgetsSuccess(budgets));
       })
       .catch(error => {
+        dispatch(apiCallError(error));
         throw error;
       });
   };
@@ -31,7 +32,7 @@ export function loadBudgets() {
 export function saveBudget(budget) {
   // could use state directly from redux thunk's second param
   // ex: return (dispatch, getState) => {
-  return dispatch => {
+  return function(dispatch) {
     dispatch(beginApiCall());
     return budgetApi
       .saveBudget(budget)
@@ -41,6 +42,7 @@ export function saveBudget(budget) {
           : dispatch(createBudgetSuccess(savedBudget));
       })
       .catch(error => {
+        dispatch(apiCallError(error));
         throw error;
       });
   };

@@ -56,7 +56,7 @@ const BudgetForm = ({
 BudgetForm.propTypes = {
   users: PropTypes.array.isRequired,
   budget: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.object,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   saving: PropTypes.bool

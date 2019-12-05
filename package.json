@@ -5,7 +5,14 @@
     "start": "run-p start:dev start:api",
     "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000 --open 'Firefox'",
     "prestart:api": "node tools/create-mock-db.js",
-    "start:api": "node tools/api-server.js"
+    "start:api": "node tools/api-server.js",
+    "test": "jest --watch"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/tools/style-mock.js"
+    }
   },
   "dependencies": {
     "bootstrap": "4.3.1",
@@ -36,6 +43,7 @@
     "json-server": "^0.15.1",
     "npm-run-all": "^4.1.5",
     "postcss-loader": "^3.0.0",
+    "react-test-renderer": "16.8.4",
     "redux-immutable-state-invariant": "2.1.0",
     "sass-loader": "^8.0.0",
     "style-loader": "0.23.1",

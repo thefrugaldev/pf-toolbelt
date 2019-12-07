@@ -8,8 +8,8 @@ import AboutPage from "./about/about-page";
 import Header from "./common/header";
 import PageNotFound from "./page-not-found";
 import CardsPage from "./cards/cards-page";
-import BudgetsPage from "./budget/budget-page";
-import ManageBudgetPage from "./budget/manage-budget-page";
+import BudgetsPage from "./budgets/budget-pages";
+import ManageBudgetPage from "./budgets/manage-budget-page";
 
 function App() {
   return (

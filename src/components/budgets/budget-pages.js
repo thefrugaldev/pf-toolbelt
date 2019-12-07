@@ -11,7 +11,7 @@ import { bindActionCreators } from "redux";
 import BudgetList from "./budget-list";
 import Spinner from "../common/spinner";
 
-const BudgetPage = ({ users, budgets, actions, loading }) => {
+const BudgetsPage = ({ users, budgets, actions, loading }) => {
   const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
   useEffect(() => {
     actions.loadBudgets().catch(error => {
@@ -59,7 +59,7 @@ const BudgetPage = ({ users, budgets, actions, loading }) => {
   );
 };
 
-BudgetPage.propTypes = {
+BudgetsPage.propTypes = {
   budgets: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
@@ -92,4 +92,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BudgetPage);
+export default connect(mapStateToProps, mapDispatchToProps)(BudgetsPage);

@@ -10,3 +10,6 @@ export const LOAD_USERS_SUCCESS = "LOAD_USERS_SUCCESS";
 //Common
 export const BEGIN_API_CALL = "BEGIN_API_CALL";
 export const API_CALL_ERROR = "API_CALL_ERROR";
+//Firebase
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";

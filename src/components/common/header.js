@@ -20,6 +20,14 @@ const Header = () => {
       <NavLink to="/about" activeStyle={activeStyle}>
         About
       </NavLink>
+      {" | "}
+      <NavLink to="/login" activeStyle={activeStyle}>
+        Login
+      </NavLink>
+      {" | "}
+      <NavLink to="/register" activeStyle={activeStyle}>
+        Register
+      </NavLink>
     </nav>
   );
 };

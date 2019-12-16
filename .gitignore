@@ -38,5 +38,8 @@ build
 # json-server db
 db.json
 
-#vscode files
+# vscode files
 .vscode
+
+# user defined files
+src/auth/config.js

@@ -12,7 +12,7 @@ import BudgetList from "./budget-list";
 import Spinner from "../common/spinner";
 
 const BudgetsPage = ({ users, budgets, actions, loading }) => {
-  const [redirectToAddCoursePage, setRedirectToAddCoursePage] = useState(false);
+  const [redirectToAddBudgetPage, setRedirectToAddBudgetPage] = useState(false);
   useEffect(() => {
     actions.loadBudgets().catch(error => {
       alert(`Loading budgets failed ${error}`);
@@ -35,16 +35,16 @@ const BudgetsPage = ({ users, budgets, actions, loading }) => {
 
   return (
     <>
-      {redirectToAddCoursePage && <Redirect to="/budget" />}
+      {redirectToAddBudgetPage && <Redirect to="/budget" />}
       <h2>Budgets</h2>
       {loading ? (
         <Spinner />
       ) : (
         <>
           <button
-            className="btn btn-primary add-course mb-20"
+            className="btn btn-primary mb-20"
             onClick={() => {
-              setRedirectToAddCoursePage(true);
+              setRedirectToAddBudgetPage(true);
             }}
           >
             Add Budget

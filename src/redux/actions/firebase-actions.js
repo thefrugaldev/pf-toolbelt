@@ -1,19 +1,24 @@
 import * as actionTypes from "./action-type-constants";
 import { auth } from "../../auth/auth-service";
 
-export function loginSuccess(user) {
-  return { type: actionTypes.LOGIN_SUCCESS, user };
+export function loginSuccess() {
+  let currentUser = auth.currentUser.toJSON();
+  return { type: actionTypes.LOGIN_SUCCESS, currentUser };
 }
 
-export function registerSuccess(user) {
-  return { type: actionTypes.REGISTER_SUCCESS, user };
+export function registerSuccess() {
+  let currentUser = auth.currentUser.toJSON();
+  return { type: actionTypes.REGISTER_SUCCESS, currentUser };
 }
 
 export function login(email, password) {
   return async function(dispatch) {
     try {
-      const user = await auth.signInWithEmailAndPassword(email, password);
-      dispatch(loginSuccess(user));
+      const currentUser = await auth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      dispatch(loginSuccess(currentUser));
     } catch (error) {
       throw error;
     }
@@ -23,8 +28,11 @@ export function login(email, password) {
 export function register(email, password) {
   return async function(dispatch) {
     try {
-      const user = await auth.createUserWithEmailAndPassword(email, password);
-      dispatch(registerSuccess(user));
+      const currentUser = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      dispatch(registerSuccess(currentUser));
     } catch (error) {
       throw error;
     }

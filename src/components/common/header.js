@@ -41,7 +41,7 @@ const Header = ({ currentUser, logout }) => {
 
         {currentUser ? (
           <div>
-            Welcome {currentUser.email}
+            Welcome {currentUser.email} | {currentUser.uid}
             <button
               onClick={handleLogout}
               className="button is-danger is-light"

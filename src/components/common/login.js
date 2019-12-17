@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { login } from "../../redux/actions/firebase-actions";
 
-const Login = ({ login }) => {
+const Login = ({ login, history }) => {
   const email = createRef();
   const password = createRef();
 
@@ -14,6 +14,7 @@ const Login = ({ login }) => {
     login(email.current.value, password.current.value)
       .then(() => {
         toast.success("Login successful");
+        history.push("/");
       })
       .catch(error => {
         toast.error("Login failed");
@@ -55,11 +56,8 @@ const Login = ({ login }) => {
 };
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-const mapDispatchToProps = {
-  login
-};
-
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(null, { login })(Login);

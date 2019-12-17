@@ -6,8 +6,8 @@ export default function firebaseReducer(
   action
 ) {
   switch (action.type) {
+    case actionTypes.REGISTER_SUCCESS:
     case actionTypes.LOGIN_SUCCESS:
-      return action.currentUser;
     case actionTypes.LOGOUT:
       return action.currentUser;
     default:

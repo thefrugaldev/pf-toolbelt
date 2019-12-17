@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { register } from "../../redux/actions/firebase-actions";
 
-const Register = ({ register }) => {
+const Register = ({ register, history }) => {
   const email = createRef();
   const password = createRef();
 
@@ -13,10 +13,11 @@ const Register = ({ register }) => {
     event.preventDefault();
     register(email.current.value, password.current.value)
       .then(() => {
-        toast.success("Registration Succesful!");
+        toast.success("Registration succesful");
+        history.push("/");
       })
       .catch(error => {
-        toast.error("Login failed");
+        toast.error("Registration failed");
         console.error(error);
       });
   };
@@ -55,11 +56,8 @@ const Register = ({ register }) => {
 };
 
 Register.propTypes = {
-  register: PropTypes.func.isRequired
+  register: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
-const mapDispatchToProps = {
-  register
-};
-
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(null, { register })(Register);

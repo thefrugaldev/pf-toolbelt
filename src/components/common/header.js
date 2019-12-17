@@ -1,9 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import PropTypes from "prop-types";
+// Redux
 import { connect } from "react-redux";
+import { logout } from "../../redux/actions/firebase-actions";
 
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, logout }) => {
   const activeStyle = { color: "#F15B2A" };
+  const handleLogout = event => {
+    event.preventDefault();
+    logout();
+  };
 
   return (
     <>
@@ -31,17 +38,32 @@ const Header = ({ currentUser }) => {
         <NavLink to="/register" activeStyle={activeStyle}>
           Register
         </NavLink>
-      </nav>
 
-      {currentUser && (
-        <h4 className="title is-4">Welcome {currentUser.email}</h4>
-      )}
+        {currentUser ? (
+          <div>
+            Welcome {currentUser.email}
+            <button
+              onClick={handleLogout}
+              className="button is-danger is-light"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <p>Please Login</p>
+        )}
+      </nav>
     </>
   );
+};
+
+Header.propTypes = {
+  currentUser: PropTypes.object,
+  logout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ currentUser }) => {
   return { currentUser };
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, { logout })(Header);

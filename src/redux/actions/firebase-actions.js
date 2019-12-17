@@ -2,39 +2,42 @@ import * as actionTypes from "./action-type-constants";
 import { auth } from "../../auth/auth-service";
 
 export function loginSuccess() {
-  let currentUser = auth.currentUser.toJSON();
-  return { type: actionTypes.LOGIN_SUCCESS, currentUser };
+  return {
+    type: actionTypes.LOGIN_SUCCESS,
+    currentUser: auth.currentUser.toJSON()
+  };
 }
 
 export function registerSuccess() {
-  let currentUser = auth.currentUser.toJSON();
-  return { type: actionTypes.REGISTER_SUCCESS, currentUser };
-}
-
-export function login(email, password) {
-  return async function(dispatch) {
-    try {
-      const currentUser = await auth.signInWithEmailAndPassword(
-        email,
-        password
-      );
-      dispatch(loginSuccess(currentUser));
-    } catch (error) {
-      throw error;
-    }
+  return {
+    type: actionTypes.REGISTER_SUCCESS,
+    currentUser: auth.currentUser.toJSON()
   };
 }
 
-export function register(email, password) {
-  return async function(dispatch) {
-    try {
-      const currentUser = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      dispatch(registerSuccess(currentUser));
-    } catch (error) {
-      throw error;
-    }
-  };
-}
+export const logout = () => async dispatch => {
+  try {
+    await auth.signOut();
+    dispatch({ type: actionTypes.LOGOUT, currentUser: auth.currentUser });
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const login = (email, password) => async dispatch => {
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    dispatch(loginSuccess());
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const register = (email, password) => async dispatch => {
+  try {
+    await auth.createUserWithEmailAndPassword(email, password);
+    dispatch(registerSuccess());
+  } catch (error) {
+    throw error;
+  }
+};

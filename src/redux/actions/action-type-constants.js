@@ -11,6 +11,7 @@ export const LOAD_USERS_SUCCESS = "LOAD_USERS_SUCCESS";
 export const BEGIN_API_CALL = "BEGIN_API_CALL";
 export const API_CALL_ERROR = "API_CALL_ERROR";
 //Firebase
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGOUT = "LOGOUT";
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const FETCH_USER = "FETCH_USER";

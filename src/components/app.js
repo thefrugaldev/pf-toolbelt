@@ -12,6 +12,7 @@ import BudgetsPage from "./budgets/budget-pages";
 import ManageBudgetPage from "./budgets/manage-budget-page";
 import Login from "./common/login";
 import Register from "./common/register";
+import PrivateRoute from "./common/private-route";
 
 function App() {
   return (
@@ -20,13 +21,12 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
-        <Route path="/cards" component={CardsPage} />
-        <Route path="/budgets" component={BudgetsPage} />
-        <Route path="/budget/:id" component={ManageBudgetPage} />
-        <Route path="/budget" component={ManageBudgetPage} />
         <Route path="/login" component={Login} />
+        <Route path="/cards" component={CardsPage} />
+        <PrivateRoute path="/budgets" component={BudgetsPage} />
+        <PrivateRoute path="/budget/:id" component={ManageBudgetPage} />
+        <PrivateRoute path="/budget" component={ManageBudgetPage} />
         <Route path="/register" component={Register} />
-
         <Route component={PageNotFound} />
       </Switch>
       <ToastContainer autoClose={3000} hideProgressBar />

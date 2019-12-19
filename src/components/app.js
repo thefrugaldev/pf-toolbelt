@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-//Components
+// Redux
+import { connect } from "react-redux";
+import { fetchUser } from "../redux/actions/firebase-actions";
+// Components
 import HomePage from "./home/home-page";
 import AboutPage from "./about/about-page";
 import Header from "./common/header";
@@ -14,7 +17,11 @@ import Login from "./common/login";
 import Register from "./common/register";
 import PrivateRoute from "./common/private-route";
 
-function App() {
+function App({ currentUser, fetchUser }) {
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <div className="container-fluid">
       <Header />
@@ -34,4 +41,8 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = ({ currentUser }) => {
+  return { currentUser };
+};
+
+export default connect(mapStateToProps, { fetchUser })(App);

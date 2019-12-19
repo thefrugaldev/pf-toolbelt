@@ -9,6 +9,7 @@ export default function firebaseReducer(
     case actionTypes.REGISTER_SUCCESS:
     case actionTypes.LOGIN_SUCCESS:
     case actionTypes.LOGOUT:
+    case actionTypes.FETCH_USER:
       return action.currentUser;
     default:
       return state;

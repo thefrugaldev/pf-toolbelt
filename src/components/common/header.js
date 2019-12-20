@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useLayoutEffect, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
+import { getAuthenticationStatus } from "../../auth/auth-service";
 // Redux
 import { connect } from "react-redux";
-import { logout } from "../../redux/actions/firebase-actions";
+import { logout, fetchUser } from "../../redux/actions/firebase-actions";
 import { toast } from "react-toastify";
 
-const Header = ({ currentUser, logout, history }) => {
+const Header = ({ logout }) => {
   const activeStyle = { color: "#F15B2A" };
   const handleLogout = event => {
     event.preventDefault();
     logout();
     toast.success("Logout successful");
   };
+
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+
+  useLayoutEffect(() => {
+    let status = getAuthenticationStatus();
+    console.log(`auth status: `, status);
+    setIsAuthenticated(getAuthenticationStatus());
+  });
 
   return (
     <>
@@ -33,7 +42,7 @@ const Header = ({ currentUser, logout, history }) => {
         >
           Cards
         </NavLink>
-        {currentUser && (
+        {isAuthenticated && (
           <NavLink
             to="/budgets"
             activeStyle={activeStyle}
@@ -47,7 +56,7 @@ const Header = ({ currentUser, logout, history }) => {
           About
         </NavLink>
 
-        {currentUser ? (
+        {isAuthenticated ? (
           <>
             <NavLink onClick={handleLogout} to="/" className="link is-info">
               Logout
@@ -86,4 +95,4 @@ const mapStateToProps = ({ currentUser }) => {
   return { currentUser };
 };
 
-export default connect(mapStateToProps, { logout })(Header);
+export default connect(mapStateToProps, { logout, fetchUser })(Header);

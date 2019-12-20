@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import TextInput from "../common/text-input";
 import SelectInput from "../common/select-input";
@@ -11,6 +11,37 @@ const BudgetForm = ({
   saving = false,
   errors = {}
 }) => {
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  function daysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
+  }
+
+  const [budgetYears, setBudgetYears] = useState([]);
+
+  useEffect(() => {
+    let currentYear = new Date().getFullYear();
+    let allyears = [];
+    for (let i = currentYear; i >= currentYear - 10; i--) {
+      allyears.push(i);
+    }
+
+    setBudgetYears(allyears);
+  }, []);
+
   return (
     <form onSubmit={onSave}>
       <h2>{budget.id ? "Edit" : "Add"} Budget</h2>
@@ -25,6 +56,28 @@ const BudgetForm = ({
         value={budget.title}
         onChange={onChange}
         error={errors.title}
+      />
+      <SelectInput
+        name="year"
+        label="Year"
+        value=""
+        defaultOptions="Select Year"
+        options={budgetYears.map(year => ({
+          value: year,
+          text: year
+        }))}
+        onChange={onChange}
+      />
+      <SelectInput
+        name="month"
+        label="Month"
+        value=""
+        defaultOptions="Select Month"
+        options={monthNames.map((month, index) => ({
+          value: index,
+          text: month
+        }))}
+        onChange={onChange}
       />
       <SelectInput
         name="userId"

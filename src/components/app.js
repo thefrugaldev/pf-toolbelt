@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PropTypes from "prop-types";
 // Redux
 import { connect } from "react-redux";
 import { fetchUser } from "../redux/actions/firebase-actions";
@@ -17,8 +18,8 @@ import Login from "./common/login";
 import Register from "./common/register";
 import PrivateRoute from "./common/private-route";
 
-function App({ currentUser, fetchUser }) {
-  useEffect(() => {
+function App({ fetchUser }) {
+  useLayoutEffect(() => {
     fetchUser();
   }, []);
 
@@ -41,8 +42,8 @@ function App({ currentUser, fetchUser }) {
   );
 }
 
-const mapStateToProps = ({ currentUser }) => {
-  return { currentUser };
+App.propTypes = {
+  fetchUser: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps, { fetchUser })(App);
+export default connect(null, { fetchUser })(App);

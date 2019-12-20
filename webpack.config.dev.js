@@ -21,7 +21,7 @@ module.exports = {
     disableHostCheck: true,
     headers: { "Access-Control-Allow-Origin": "*" },
     https: false,
-    watchContentBase: true
+    contentBase: "./"
   },
   plugins: [
     new webpack.DefinePlugin({

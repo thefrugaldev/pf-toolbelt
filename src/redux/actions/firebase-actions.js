@@ -48,11 +48,13 @@ export const fetchUser = () => async dispatch => {
   try {
     await auth.onAuthStateChanged(currentUser => {
       if (currentUser) {
+        localStorage.setItem("isAuthenticated", true);
         dispatch({
           type: actionTypes.FETCH_USER,
           currentUser: currentUser.toJSON()
         });
       } else {
+        localStorage.removeItem("isAuthenticated");
         dispatch({
           type: actionTypes.FETCH_USER,
           currentUser: null

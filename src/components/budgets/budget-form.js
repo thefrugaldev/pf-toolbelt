@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import TextInput from "../common/text-input";
 import SelectInput from "../common/select-input";
@@ -11,6 +11,28 @@ const BudgetForm = ({
   saving = false,
   errors = {}
 }) => {
+  const [budgetYears, setBudgetYears] = useState([]);
+  const [daysInMonth, setDaysInMonth] = useState([]);
+  const [selectedDate, setSelectedDate] = useState({
+    month: budget.month,
+    day: budget.day,
+    year: budget.year
+  });
+
+  useLayoutEffect(() => {
+    let currentYear = new Date().getFullYear();
+    let allyears = [];
+    for (let i = currentYear; i >= currentYear - 10; i--) {
+      allyears.push(i);
+    }
+
+    setBudgetYears(allyears);
+  }, []);
+
+  useEffect(() => {
+    getDaysInMonth(selectedDate.month, selectedDate.year);
+  }, [selectedDate.month]);
+
   const monthNames = [
     "January",
     "February",
@@ -26,24 +48,33 @@ const BudgetForm = ({
     "December"
   ];
 
-  function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
-  }
+  const onDateChange = event => {
+    const { name, value } = event.target;
 
-  const [budgetYears, setBudgetYears] = useState([]);
+    setSelectedDate({
+      ...selectedDate,
+      [name]: value
+    });
 
-  useEffect(() => {
-    let currentYear = new Date().getFullYear();
-    let allyears = [];
-    for (let i = currentYear; i >= currentYear - 10; i--) {
-      allyears.push(i);
+    onChange(event);
+  };
+
+  const getDaysInMonth = (month, year) => {
+    const numberOfDays = new Date(year, month, 0).getDate();
+    let arrayOfDays = [];
+    for (let i = 1; i <= numberOfDays; i++) {
+      arrayOfDays.push(i);
     }
 
-    setBudgetYears(allyears);
-  }, []);
+    setDaysInMonth(arrayOfDays);
+  };
 
   return (
     <form onSubmit={onSave}>
+      <p>Month: {selectedDate.month}</p>
+      <p>Year: {selectedDate.year}</p>
+      <p>Days: {daysInMonth.length}</p>
+
       <h2>{budget.id ? "Edit" : "Add"} Budget</h2>
       {errors.onSave && (
         <div className="alert alert-danger" role="alert">
@@ -57,33 +88,47 @@ const BudgetForm = ({
         onChange={onChange}
         error={errors.title}
       />
-      <SelectInput
-        name="year"
-        label="Year"
-        value=""
-        defaultOptions="Select Year"
-        options={budgetYears.map(year => ({
-          value: year,
-          text: year
-        }))}
-        onChange={onChange}
-      />
-      <SelectInput
-        name="month"
-        label="Month"
-        value=""
-        defaultOptions="Select Month"
-        options={monthNames.map((month, index) => ({
-          value: index,
-          text: month
-        }))}
-        onChange={onChange}
-      />
+      <div className="field">
+        <label className="label">Date</label>
+        <div className="field-body">
+          <SelectInput
+            name="month"
+            value={selectedDate.month}
+            defaultOption="Select Month"
+            options={monthNames.map((month, index) => ({
+              value: index + 1,
+              text: month
+            }))}
+            onChange={onDateChange}
+          />
+          <SelectInput
+            name="day"
+            value={selectedDate.day}
+            defaultOption="Select Day"
+            options={daysInMonth.map(day => ({
+              value: day,
+              text: day
+            }))}
+            onChange={onDateChange}
+          />
+          <SelectInput
+            name="year"
+            value={selectedDate.year}
+            defaultOption="Select Year"
+            options={budgetYears.map(year => ({
+              value: year,
+              text: year
+            }))}
+            onChange={onDateChange}
+          />
+        </div>
+      </div>
+
       <SelectInput
         name="userId"
         label="User"
         value={budget.userId || ""}
-        defaultOptions="Select User"
+        defaultOption="Select User"
         options={users.map(user => ({
           value: user.id,
           text: user.name
@@ -98,10 +143,11 @@ const BudgetForm = ({
         onChange={onChange}
         error={errors.category}
       />
-
-      <button type="submit" disabled={saving} className="btn btn-primary">
-        {saving ? "Saving..." : "Save"}
-      </button>
+      <div className="control">
+        <button type="submit" disabled={saving} className="button is-primary">
+          {saving ? "Saving..." : "Save"}
+        </button>
+      </div>
     </form>
   );
 };

@@ -97,9 +97,9 @@ const newBudget = {
   id: null,
   title: "",
   category: "",
-  month: null,
-  day: null,
-  year: null,
+  month: new Date().getMonth() + 1,
+  day: new Date().getDate(),
+  year: new Date().getFullYear(),
   userId: null
 };
 

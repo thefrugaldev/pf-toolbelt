@@ -2,24 +2,28 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TextInput = ({ name, label, onChange, placeholder, value, error }) => {
-  let wrapperClass = "form-group";
+  let inputClass = "input";
   if (error && error.length > 0) {
-    wrapperClass += " " + "has-error";
+    inputClass += " " + "is-danger";
   }
 
   return (
-    <div className={wrapperClass}>
-      <label htmlFor={name}>{label}</label>
-      <div className="field">
+    <div className="field">
+      {label && (
+        <label className="label" htmlFor={name}>
+          {label}
+        </label>
+      )}
+      <div className="control is-expanded">
         <input
           type="text"
           name={name}
-          className="form-control"
+          className={inputClass}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
         />
-        {error && <div className="alert alert-danger">{error}</div>}
+        {error && <p className="help is-danger">{error}</p>}
       </div>
     </div>
   );
@@ -27,7 +31,7 @@ const TextInput = ({ name, label, onChange, placeholder, value, error }) => {
 
 TextInput.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   value: PropTypes.string,

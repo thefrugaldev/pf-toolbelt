@@ -10,26 +10,37 @@ const SelectInput = ({
   error,
   options
 }) => {
+  let selectClass = "select is-fullwidth";
+  if (error && error.length > 0) {
+    selectClass += " " + "is-danger";
+  }
+
   return (
-    <div className="form-group">
-      <label htmlFor={name}>{label}</label>
-      <div className="field">
-        <select
-          name={name}
-          value={value}
-          onChange={onChange}
-          className="form-control"
-        >
-          <option value="">{defaultOption}</option>
-          {options.map(option => {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.text}
-              </option>
-            );
-          })}
-        </select>
-        {error && <div className="alert alert-danger">{error}</div>}
+    <div className="field">
+      {label && (
+        <label className="label" htmlFor={name}>
+          {label}
+        </label>
+      )}
+      <div className="control is-expanded">
+        <div className={selectClass}>
+          <select
+            name={name}
+            value={value}
+            onChange={onChange}
+            className="form-control"
+          >
+            <option value="">{defaultOption}</option>
+            {options.map(option => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.text}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        {error && <div className="help is-danger">{error}</div>}
       </div>
     </div>
   );
@@ -37,7 +48,7 @@ const SelectInput = ({
 
 SelectInput.propTypes = {
   name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   defaultOption: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

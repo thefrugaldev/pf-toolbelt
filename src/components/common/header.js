@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState, useEffect } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getAuthenticationStatus } from "../../auth/auth-service";
@@ -18,8 +18,6 @@ const Header = ({ logout }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useLayoutEffect(() => {
-    let status = getAuthenticationStatus();
-    console.log(`auth status: `, status);
     setIsAuthenticated(getAuthenticationStatus());
   });
 

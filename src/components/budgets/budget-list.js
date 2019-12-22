@@ -21,7 +21,7 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
               <td>
                 <Link to={`/budget/${budget.id}`}>{budget.title}</Link>
               </td>
-              <td>{budget.category}</td>
+              <td>{budget.categoryName}</td>
               <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>
               <td>{budget.userName}</td>
               <td>

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { loadBudgets, deleteBudget } from "../../redux/actions/budget-actions";
 import { loadUsers } from "../../redux/actions/user-actions";
+import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import BudgetList from "./budget-list";
 import Spinner from "../common/spinner";
@@ -16,6 +17,7 @@ const BudgetsPage = ({
   loadBudgets,
   loadUsers,
   deleteBudget,
+  loadCategories,
   loading
 }) => {
   const [redirectToAddBudgetPage, setRedirectToAddBudgetPage] = useState(false);
@@ -28,6 +30,9 @@ const BudgetsPage = ({
         alert(`Loading users failed ${error}`);
       });
     }
+    loadCategories().catch(error => {
+      alert(`Loading categories failed ${error}`);
+    });
   }, []);
 
   const handleDeleteBudgetAsync = async budget => {
@@ -74,18 +79,27 @@ BudgetsPage.propTypes = {
   loading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ budgets, users, apiCallsInProgress }) => {
+const mapStateToProps = ({
+  budgets,
+  users,
+  categories,
+  apiCallsInProgress
+}) => {
   return {
     budgets:
-      users.length === 0
+      users.length === 0 || categories.length === 0
         ? []
         : budgets.map(budget => {
             return {
               ...budget,
-              userName: users.find(u => u.id === budget.userId).name
+              userName: users.find(u => u.id === budget.userId).name,
+              categoryName: budget.categoryId
+                ? categories.find(c => c.id === budget.categoryId).name
+                : "No Category Specified"
             };
           }),
     users,
+    categories,
     loading: apiCallsInProgress > 0
   };
 };
@@ -93,7 +107,8 @@ const mapStateToProps = ({ budgets, users, apiCallsInProgress }) => {
 const mapDispatchToProps = {
   loadBudgets,
   loadUsers,
-  deleteBudget
+  deleteBudget,
+  loadCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BudgetsPage);

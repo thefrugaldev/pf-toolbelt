@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const BudgetList = ({ budgets, onDeleteClick }) => {
   return (
-    <table className="table">
+    <table className="table is-fullwidth">
       <thead>
         <tr>
           <th>Title</th>

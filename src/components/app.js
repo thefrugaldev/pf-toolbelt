@@ -12,7 +12,7 @@ import AboutPage from "./about/about-page";
 import Header from "./common/header";
 import PageNotFound from "./page-not-found";
 import CardsPage from "./cards/cards-page";
-import BudgetsPage from "./budgets/budget-pages";
+import BudgetsPage from "./budgets/budgets-page";
 import ManageBudgetPage from "./budgets/manage-budget-page";
 import Login from "./common/login";
 import Register from "./common/register";

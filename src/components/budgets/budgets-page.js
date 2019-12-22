@@ -4,21 +4,27 @@ import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
-import * as budgetActions from "../../redux/actions/budget-actions";
-import * as userActions from "../../redux/actions/user-actions";
-import { bindActionCreators } from "redux";
+import { loadBudgets, deleteBudget } from "../../redux/actions/budget-actions";
+import { loadUsers } from "../../redux/actions/user-actions";
 //Components
 import BudgetList from "./budget-list";
 import Spinner from "../common/spinner";
 
-const BudgetsPage = ({ users, budgets, actions, loading }) => {
+const BudgetsPage = ({
+  users,
+  budgets,
+  loadBudgets,
+  loadUsers,
+  deleteBudget,
+  loading
+}) => {
   const [redirectToAddBudgetPage, setRedirectToAddBudgetPage] = useState(false);
   useEffect(() => {
-    actions.loadBudgets().catch(error => {
+    loadBudgets().catch(error => {
       alert(`Loading budgets failed ${error}`);
     });
     if (users.length === 0) {
-      actions.loadUsers().catch(error => {
+      loadUsers().catch(error => {
         alert(`Loading users failed ${error}`);
       });
     }
@@ -27,7 +33,7 @@ const BudgetsPage = ({ users, budgets, actions, loading }) => {
   const handleDeleteBudgetAsync = async budget => {
     toast.success("Budget Deleted");
     try {
-      await actions.deleteBudget(budget);
+      await deleteBudget(budget);
     } catch (error) {
       toast.error(`Delete Failed. ${error}`, { autoClose: false });
     }
@@ -42,7 +48,7 @@ const BudgetsPage = ({ users, budgets, actions, loading }) => {
       ) : (
         <>
           <button
-            className="btn btn-primary mb-20"
+            className="button is-primary"
             onClick={() => {
               setRedirectToAddBudgetPage(true);
             }}
@@ -62,7 +68,9 @@ const BudgetsPage = ({ users, budgets, actions, loading }) => {
 BudgetsPage.propTypes = {
   budgets: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
+  loadBudgets: PropTypes.func.isRequired,
+  loadUsers: PropTypes.func.isRequired,
+  deleteBudget: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired
 };
 
@@ -82,14 +90,10 @@ const mapStateToProps = ({ budgets, users, apiCallsInProgress }) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: {
-      loadBudgets: bindActionCreators(budgetActions.loadBudgets, dispatch),
-      loadUsers: bindActionCreators(userActions.loadUsers, dispatch),
-      deleteBudget: bindActionCreators(budgetActions.deleteBudget, dispatch)
-    }
-  };
+const mapDispatchToProps = {
+  loadBudgets,
+  loadUsers,
+  deleteBudget
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BudgetsPage);

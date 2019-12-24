@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { connect } from "react-redux";
 import { loadBudgets, saveBudget } from "../../redux/actions/budget-actions";
 import { loadUsers } from "../../redux/actions/user-actions";
+import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import BudgetForm from "./budget-form";
 import { newBudget } from "../../../tools/mock-budgets";
@@ -13,8 +14,10 @@ import Spinner from "../common/spinner";
 const ManageBudgetPage = ({
   budgets,
   users,
+  categories,
   loadBudgets,
   loadUsers,
+  loadCategories,
   saveBudget,
   history,
   ...props
@@ -36,6 +39,9 @@ const ManageBudgetPage = ({
         alert(`Loading users failed ${error}`);
       });
     }
+    loadCategories().catch(error => {
+      alert(`Loading categories failed ${error}`);
+    });
   }, [props.budget]);
 
   const handleChange = event => {
@@ -81,6 +87,7 @@ const ManageBudgetPage = ({
       budget={budget}
       errors={errors}
       users={users}
+      categories={categories}
       onChange={handleChange}
       onSave={handleSave}
       saving={saving}
@@ -92,6 +99,7 @@ ManageBudgetPage.propTypes = {
   budget: PropTypes.object.isRequired,
   budgets: PropTypes.array.isRequired,
   users: PropTypes.array.isRequired,
+  categories: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,
   loadUsers: PropTypes.func.isRequired,
   saveBudget: PropTypes.func.isRequired,
@@ -102,7 +110,7 @@ export function getBudgetById(budgets, id) {
   return budgets.find(budget => budget.id === parseInt(id)) || null;
 }
 
-const mapStateToProps = ({ budgets, users }, ownProps) => {
+const mapStateToProps = ({ budgets, users, categories }, ownProps) => {
   const id = ownProps.match.params.id;
   const budget =
     id && budgets.length > 0 ? getBudgetById(budgets, id) : newBudget;
@@ -110,14 +118,16 @@ const mapStateToProps = ({ budgets, users }, ownProps) => {
   return {
     budget,
     budgets,
-    users
+    users,
+    categories
   };
 };
 
 const mapDispatchToProps = {
   saveBudget,
   loadBudgets,
-  loadUsers
+  loadUsers,
+  loadCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageBudgetPage);

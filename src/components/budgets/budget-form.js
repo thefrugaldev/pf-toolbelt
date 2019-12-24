@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+// Components
 import TextInput from "../common/text-input";
 import SelectInput from "../common/select-input";
 
 const BudgetForm = ({
   budget,
   users,
+  categories,
   onSave,
   onChange,
   saving = false,
@@ -136,13 +139,23 @@ const BudgetForm = ({
         onChange={onChange}
         error={errors.user}
       />
-      <TextInput
+
+      <SelectInput
         name="category"
         label="Category"
-        value={budget.category}
+        value={budget.categoryId || ""}
+        defaultOption="Select Category"
+        options={categories.map(cat => ({
+          value: cat.id,
+          text: cat.name
+        }))}
         onChange={onChange}
         error={errors.category}
       />
+      <Link to="/categories" className="button is-primary">
+        Create new Category
+      </Link>
+
       <div className="control">
         <button type="submit" disabled={saving} className="button is-primary">
           {saving ? "Saving..." : "Save"}
@@ -155,6 +168,7 @@ const BudgetForm = ({
 BudgetForm.propTypes = {
   users: PropTypes.array.isRequired,
   budget: PropTypes.object.isRequired,
+  categories: PropTypes.array.isRequired,
   errors: PropTypes.object,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,

@@ -13,7 +13,7 @@ const Register = ({ register, history }) => {
     event.preventDefault();
     register(email.current.value, password.current.value)
       .then(() => {
-        toast.success("Registration succesful");
+        toast.success("Registration successful");
         history.push("/");
       })
       .catch(error => {

@@ -14,6 +14,7 @@ import PageNotFound from "./page-not-found";
 import CardsPage from "./cards/cards-page";
 import BudgetsPage from "./budgets/budgets-page";
 import ManageBudgetPage from "./budgets/manage-budget-page";
+import ManageCategoriesPage from "./budgets/manage-categories-page";
 import Login from "./common/login";
 import Register from "./common/register";
 import PrivateRoute from "./common/private-route";
@@ -34,6 +35,7 @@ function App({ fetchUser }) {
         <PrivateRoute path="/budgets" component={BudgetsPage} />
         <PrivateRoute path="/budget/:id" component={ManageBudgetPage} />
         <PrivateRoute path="/budget" component={ManageBudgetPage} />
+        <PrivateRoute path="/categories" component={ManageCategoriesPage} />
         <Route path="/register" component={Register} />
         <Route component={PageNotFound} />
       </Switch>

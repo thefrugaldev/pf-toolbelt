@@ -27,7 +27,10 @@ export function saveBudget(budget) {
 }
 
 export function deleteBudget(budgetId) {
-  return fetch(baseUrl + budgetId, { method: "DELETE" })
+  return fetch(baseUrl + budgetId, {
+    method: "DELETE",
+    headers: { "content-type": "application/json" }
+  })
     .then(handleResponse)
     .catch(handleError);
 }

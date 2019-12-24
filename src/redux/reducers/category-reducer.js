@@ -14,6 +14,8 @@ export default function categoryReducer(
       return state.map(category =>
         category.id === action.category.id ? action.category : category
       );
+    case actionTypes.DELETE_CATEGORY_OPTIMISTIC:
+      return state.filter(category => category.id != action.category.id);
     default:
       return state;
   }

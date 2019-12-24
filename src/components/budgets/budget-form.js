@@ -74,10 +74,6 @@ const BudgetForm = ({
 
   return (
     <form onSubmit={onSave}>
-      <p>Month: {selectedDate.month}</p>
-      <p>Year: {selectedDate.year}</p>
-      <p>Days: {daysInMonth.length}</p>
-
       <h2>{budget.id ? "Edit" : "Add"} Budget</h2>
       {errors.onSave && (
         <div className="alert alert-danger" role="alert">

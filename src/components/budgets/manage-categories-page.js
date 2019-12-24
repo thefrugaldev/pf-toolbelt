@@ -4,13 +4,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   loadCategories,
-  saveCategory
+  saveCategory,
+  deleteCategory
 } from "../../redux/actions/category-actions";
 // Components
 import Spinner from "../common/spinner";
 import TextInput from "../common/text-input";
 
-const ManageCategoriesPage = ({ categories, loadCategories, saveCategory }) => {
+const ManageCategoriesPage = ({
+  categories,
+  loadCategories,
+  saveCategory,
+  deleteCategory
+}) => {
   const [newCategory, setNewCategory] = useState("");
 
   useEffect(() => {
@@ -25,9 +31,15 @@ const ManageCategoriesPage = ({ categories, loadCategories, saveCategory }) => {
   };
 
   const handleSave = () => {
-    saveCategory({ name: newCategory }).catch(error => {
-      console.error(`Failed to save category: `, error);
-    });
+    saveCategory({ name: newCategory }).catch(error =>
+      console.error(`Failed to save category: `, error)
+    );
+  };
+
+  const handleDelete = category => {
+    deleteCategory(category).catch(error =>
+      console.error(`Failed to delete category: `, error)
+    );
   };
 
   return categories.length === 0 ? (
@@ -43,7 +55,12 @@ const ManageCategoriesPage = ({ categories, loadCategories, saveCategory }) => {
                 <th>{category.id}</th>
                 <td>{category.name}</td>
                 <td>
-                  <button className="button is-danger">Delete</button>
+                  <button
+                    onClick={() => handleDelete(category)}
+                    className="button is-danger"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             );
@@ -72,7 +89,8 @@ const ManageCategoriesPage = ({ categories, loadCategories, saveCategory }) => {
 ManageCategoriesPage.propTypes = {
   categories: PropTypes.array.isRequired,
   loadCategories: PropTypes.func.isRequired,
-  saveCategory: PropTypes.func.isRequired
+  saveCategory: PropTypes.func.isRequired,
+  deleteCategory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ categories }) => {
@@ -81,7 +99,8 @@ const mapStateToProps = ({ categories }) => {
 
 const mapDispatchToProps = {
   loadCategories,
-  saveCategory
+  saveCategory,
+  deleteCategory
 };
 
 export default connect(

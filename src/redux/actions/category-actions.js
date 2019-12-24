@@ -14,6 +14,10 @@ export function updateCategorySuccess(category) {
   return { type: actionTypes.UPDATE_CATEGORY_SUCCESS, category };
 }
 
+export function deleteCategoryOptimistic(category) {
+  return { type: actionTypes.DELETE_CATEGORY_OPTIMISTIC, category };
+}
+
 export const loadCategories = () => async dispatch => {
   dispatch(beginApiCall());
   try {
@@ -38,4 +42,9 @@ export const saveCategory = category => dispatch => {
       dispatch(apiCallError(error));
       throw error;
     });
+};
+
+export const deleteCategory = category => dispatch => {
+  dispatch(deleteCategoryOptimistic(category));
+  return categoryApi.deleteCategory(category.id);
 };

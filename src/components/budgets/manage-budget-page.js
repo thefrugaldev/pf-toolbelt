@@ -102,6 +102,7 @@ ManageBudgetPage.propTypes = {
   categories: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,
   loadUsers: PropTypes.func.isRequired,
+  loadCategories: PropTypes.func.isRequired,
   saveBudget: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
 };

@@ -36,7 +36,6 @@ server.use((req, res, next) => {
 });
 
 server.post("/budgets/", function(req, res, next) {
-  debugger;
   const error = validateBudget(req.body);
   if (error) {
     res.status(400).send(error);

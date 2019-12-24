@@ -141,7 +141,7 @@ const BudgetForm = ({
       />
 
       <SelectInput
-        name="category"
+        name="categoryId"
         label="Category"
         value={budget.categoryId || ""}
         defaultOption="Select Category"

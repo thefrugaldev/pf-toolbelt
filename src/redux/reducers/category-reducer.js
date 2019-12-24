@@ -8,6 +8,12 @@ export default function categoryReducer(
   switch (action.type) {
     case actionTypes.LOAD_CATEGORIES_SUCCESS:
       return action.categories;
+    case actionTypes.CREATE_CATEGORY_SUCCESS:
+      return [...state, { ...action.category }];
+    case actionTypes.UPDATE_CATEGORY_SUCCESS:
+      return state.map(category =>
+        category.id === action.category.id ? action.category : category
+      );
     default:
       return state;
   }

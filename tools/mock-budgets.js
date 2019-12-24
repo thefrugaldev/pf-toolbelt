@@ -69,7 +69,7 @@ const budgets = [
     month: 3,
     day: 10,
     year: 2019,
-    userId: 1
+    userId: 2
   },
   {
     id: 9,
@@ -91,7 +91,10 @@ const budgets = [
   }
 ];
 
-const users = [{ id: 1, name: "Clayton" }];
+const users = [
+  { id: 1, name: "Clayton" },
+  { id: 2, name: "Test User" }
+];
 
 const categories = [
   {

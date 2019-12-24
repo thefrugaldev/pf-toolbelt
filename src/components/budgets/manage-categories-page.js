@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 // Redux
 import { connect } from "react-redux";
-import { loadCategories } from "../../redux/actions/category-actions";
+import {
+  loadCategories,
+  saveCategory
+} from "../../redux/actions/category-actions";
 // Components
 import Spinner from "../common/spinner";
 import TextInput from "../common/text-input";
 
-const ManageCategoriesPage = ({ categories, loadCategories }) => {
+const ManageCategoriesPage = ({ categories, loadCategories, saveCategory }) => {
   const [newCategory, setNewCategory] = useState("");
 
   useEffect(() => {
@@ -21,8 +24,10 @@ const ManageCategoriesPage = ({ categories, loadCategories }) => {
     setNewCategory(event.target.value);
   };
 
-  const saveCategory = () => {
-    console.log(newCategory);
+  const handleSave = () => {
+    saveCategory({ name: newCategory }).catch(error => {
+      console.error(`Failed to save category: `, error);
+    });
   };
 
   return categories.length === 0 ? (
@@ -47,12 +52,13 @@ const ManageCategoriesPage = ({ categories, loadCategories }) => {
             <th></th>
             <td>
               <TextInput
+                name="category"
                 placeholder={"Create new category"}
                 onChange={handleChange}
               />
             </td>
             <td>
-              <button onClick={saveCategory} className="button is-success">
+              <button onClick={handleSave} className="button is-success">
                 Success
               </button>
             </td>
@@ -65,7 +71,8 @@ const ManageCategoriesPage = ({ categories, loadCategories }) => {
 
 ManageCategoriesPage.propTypes = {
   categories: PropTypes.array.isRequired,
-  loadCategories: PropTypes.func.isRequired
+  loadCategories: PropTypes.func.isRequired,
+  saveCategory: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ categories }) => {
@@ -73,7 +80,8 @@ const mapStateToProps = ({ categories }) => {
 };
 
 const mapDispatchToProps = {
-  loadCategories
+  loadCategories,
+  saveCategory
 };
 
 export default connect(

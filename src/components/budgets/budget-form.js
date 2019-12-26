@@ -135,23 +135,25 @@ const BudgetForm = ({
         onChange={onChange}
         error={errors.user}
       />
-
-      <SelectInput
-        name="categoryId"
-        label="Category"
-        value={budget.categoryId || ""}
-        defaultOption="Select Category"
-        options={categories.map(cat => ({
-          value: cat.id,
-          text: cat.name
-        }))}
-        onChange={onChange}
-        error={errors.category}
-      />
-      <Link to="/categories" className="button is-primary">
-        Create new Category
-      </Link>
-
+      <div className="level">
+        <div className="level-left">
+          <SelectInput
+            name="categoryId"
+            label="Category"
+            value={budget.categoryId || ""}
+            defaultOption="Select Category"
+            options={categories.map(cat => ({
+              value: cat.id,
+              text: cat.name
+            }))}
+            onChange={onChange}
+            error={errors.category}
+          />
+        </div>
+        <Link to="/categories" className="button is-link is-light level-right">
+          Create new Category
+        </Link>
+      </div>
       <div className="control">
         <button type="submit" disabled={saving} className="button is-primary">
           {saving ? "Saving..." : "Save"}

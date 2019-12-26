@@ -48,17 +48,17 @@ const ManageBudgetPage = ({
     const { name, value } = event.target;
     setBudget(prevBudget => ({
       ...prevBudget,
-      [name]: name === "userId" ? parseInt(value, 10) : value
+      [name]: name.toLowerCase().includes("id") ? parseInt(value, 10) : value
     }));
   };
 
   const formIsValid = () => {
-    const { title, userId, category } = budget;
+    const { title, userId, categoryId } = budget;
     const errors = {};
 
     if (!title) errors.title = "Title is required";
     if (!userId) errors.user = "User is required";
-    if (!category) errors.category = "Category is required";
+    if (!categoryId) errors.category = "Category is required";
 
     setErrors(errors);
     // Form is valid if the errors object still has no properties

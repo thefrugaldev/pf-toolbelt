@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
@@ -20,7 +20,6 @@ const BudgetsPage = ({
   loadCategories,
   loading
 }) => {
-  const [redirectToAddBudgetPage, setRedirectToAddBudgetPage] = useState(false);
   useEffect(() => {
     loadBudgets().catch(error => {
       alert(`Loading budgets failed ${error}`);
@@ -46,24 +45,29 @@ const BudgetsPage = ({
 
   return (
     <>
-      {redirectToAddBudgetPage && <Redirect to="/budget" />}
       <h2>Budgets</h2>
       {loading ? (
         <Spinner />
       ) : (
         <>
-          <button
-            className="button is-primary"
-            onClick={() => {
-              setRedirectToAddBudgetPage(true);
-            }}
-          >
-            Add Budget
-          </button>
           <BudgetList
             onDeleteClick={handleDeleteBudgetAsync}
             budgets={budgets}
           />
+          <div className="level">
+            <Link
+              to="/budget"
+              className="button is-primary is-light level-left"
+            >
+              Add Budget
+            </Link>
+            <Link
+              to="/categories"
+              className="button is-link is-light level-right"
+            >
+              Update Categories
+            </Link>
+          </div>
         </>
       )}
     </>

@@ -3,7 +3,7 @@
   "description": "React application that provides all of the necessary tools to assist in personal finance",
   "scripts": {
     "start": "run-p start:dev start:api",
-    "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000 --open 'Firefox'",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js --port 3000",
     "prestart:api": "node tools/create-mock-db.js",
     "start:api": "node tools/api-server.js",
     "test": "jest --watch"

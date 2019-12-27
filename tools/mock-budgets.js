@@ -47,7 +47,7 @@ const budgets = [
   {
     id: 6,
     title: "Red Lobster",
-    categoryId: null,
+    categoryId: 6,
     month: 2,
     day: 17,
     year: 2019,

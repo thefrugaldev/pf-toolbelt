@@ -16,9 +16,9 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
       <tbody>
         {budgets.map(budget => {
           return (
-            <tr key={budget.id}>
+            <tr key={budget._id}>
               <td>
-                <Link to={`/budget/${budget.id}`}>{budget.title}</Link>
+                <Link to={`/budget/${budget._id}`}>{budget.title}</Link>
               </td>
               <td>{budget.categoryName}</td>
               <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>

@@ -9,12 +9,12 @@ export default function budgetReducer(state = initialState.budgets, action) {
       return [...state, { ...action.budget }];
     case actionTypes.UPDATE_BUDGET_SUCCESS:
       return state.map(budget =>
-        budget.id === action.budget.id ? action.budget : budget
+        budget._id === action.budget._id ? action.budget : budget
       );
     case actionTypes.LOAD_BUDGETS_SUCCESS:
       return action.budgets;
     case actionTypes.DELETE_BUDGET_OPTIMISTIC:
-      return state.filter(budget => budget.id !== action.budget.id);
+      return state.filter(budget => budget._id !== action.budget._id);
     default:
       return state;
   }

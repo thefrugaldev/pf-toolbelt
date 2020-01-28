@@ -19,10 +19,10 @@ const BudgetsPage = ({
 }) => {
   useEffect(() => {
     loadBudgets().catch(error => {
-      alert(`Loading budgets failed ${error}`);
+      console.log(`Loading budgets failed ${error}`);
     });
     loadCategories().catch(error => {
-      alert(`Loading categories failed ${error}`);
+      console.log(`Loading categories failed ${error}`);
     });
   }, []);
 
@@ -83,7 +83,7 @@ const mapStateToProps = ({ budgets, categories, apiCallsInProgress }) => {
             return {
               ...budget,
               categoryName: budget.categoryId
-                ? categories.find(c => c.id === budget.categoryId).name
+                ? categories.find(c => c._id === budget.categoryId).name
                 : "No Category Specified"
             };
           }),

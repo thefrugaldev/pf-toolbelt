@@ -17,8 +17,8 @@ export function saveBudget(budget) {
     budget.year = currentDate.getFullYear();
   }
 
-  return fetch(baseUrl + (budget.id || ""), {
-    method: budget.id ? "PUT" : "POST",
+  return fetch(baseUrl + (budget._id || ""), {
+    method: budget._id ? "PUT" : "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(budget)
   })

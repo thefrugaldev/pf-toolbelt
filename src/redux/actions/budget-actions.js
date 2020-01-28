@@ -24,6 +24,7 @@ export function loadBudgets() {
     return budgetApi
       .getBudgets()
       .then(budgets => {
+        console.log(budgets);
         dispatch(loadBudgetsSuccess(budgets));
       })
       .catch(error => {
@@ -41,7 +42,7 @@ export function saveBudget(budget) {
     return budgetApi
       .saveBudget(budget)
       .then(savedBudget => {
-        budget.id
+        budget._id
           ? dispatch(updateBudgetSuccess(savedBudget))
           : dispatch(createBudgetSuccess(savedBudget));
       })
@@ -55,6 +56,6 @@ export function saveBudget(budget) {
 export function deleteBudget(budget) {
   return function(dispatch) {
     dispatch(deleteBudgetOptimistic(budget));
-    return budgetApi.deleteBudget(budget.id);
+    return budgetApi.deleteBudget(budget._id);
   };
 }

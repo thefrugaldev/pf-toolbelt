@@ -1,6 +1,6 @@
 const budgets = [
   {
-    id: 1,
+    _id: 1,
     title: "LGE",
     categoryId: 1,
     month: 1,
@@ -8,7 +8,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 2,
+    _id: 2,
     title: "Louisville Water",
     categoryId: 2,
     month: 1,
@@ -16,7 +16,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 3,
+    _id: 3,
     title: "Target",
     categoryId: 5,
     month: 1,
@@ -24,7 +24,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 4,
+    _id: 4,
     title: "LGE",
     categoryId: 1,
     month: 2,
@@ -32,7 +32,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 5,
+    _id: 5,
     title: "Movie Theatre",
     categoryId: 6,
     month: 2,
@@ -40,7 +40,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 6,
+    _id: 6,
     title: "Red Lobster",
     categoryId: 6,
     month: 2,
@@ -48,7 +48,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 7,
+    _id: 7,
     title: "LGE",
     categoryId: 1,
     month: 3,
@@ -56,7 +56,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 8,
+    _id: 8,
     title: "Kroger",
     categoryId: 4,
     month: 3,
@@ -64,7 +64,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 9,
+    _id: 9,
     title: "Louisville Water",
     categoryId: 2,
     month: 3,
@@ -72,7 +72,7 @@ const budgets = [
     year: 2019
   },
   {
-    id: 10,
+    _id: 10,
     title: "LGE",
     categoryId: 1,
     month: 4,
@@ -83,33 +83,33 @@ const budgets = [
 
 const categories = [
   {
-    id: 1,
+    _id: 1,
     name: "Electricity"
   },
   {
-    id: 2,
+    _id: 2,
     name: "Water"
   },
   {
-    id: 3,
+    _id: 3,
     name: "Mortgage"
   },
   {
-    id: 4,
+    _id: 4,
     name: "Grocery"
   },
   {
-    id: 5,
+    _id: 5,
     name: "Shopping"
   },
   {
-    id: 6,
+    _id: 6,
     name: "Entertainment"
   }
 ];
 
 const newBudget = {
-  id: null,
+  _id: null,
   title: "",
   categoryId: null,
   month: new Date().getMonth() + 1,

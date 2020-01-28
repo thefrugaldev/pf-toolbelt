@@ -22,6 +22,7 @@ export const loadCategories = () => async dispatch => {
   dispatch(beginApiCall());
   try {
     const categories = await categoryApi.getCategories();
+    console.log(categories);
     dispatch(loadCategoriesSuccess(categories));
   } catch (error) {
     dispatch(apiCallError(error));
@@ -34,7 +35,7 @@ export const saveCategory = category => dispatch => {
   return categoryApi
     .saveCategory(category)
     .then(savedCategory => {
-      category.id
+      category._id
         ? dispatch(updateCategorySuccess(savedCategory))
         : dispatch(createCategorySuccess(savedCategory));
     })
@@ -46,5 +47,5 @@ export const saveCategory = category => dispatch => {
 
 export const deleteCategory = category => dispatch => {
   dispatch(deleteCategoryOptimistic(category));
-  return categoryApi.deleteCategory(category.id);
+  return categoryApi.deleteCategory(category._id);
 };

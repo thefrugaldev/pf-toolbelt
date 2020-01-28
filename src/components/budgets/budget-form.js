@@ -73,7 +73,7 @@ const BudgetForm = ({
 
   return (
     <form onSubmit={onSave}>
-      <h2>{budget.id ? "Edit" : "Add"} Budget</h2>
+      <h2>{budget._id ? "Edit" : "Add"} Budget</h2>
       {errors.onSave && (
         <div className="alert alert-danger" role="alert">
           {errors.onSave}
@@ -129,7 +129,7 @@ const BudgetForm = ({
             value={budget.categoryId || ""}
             defaultOption="Select Category"
             options={categories.map(cat => ({
-              value: cat.id,
+              value: cat._id,
               text: cat.name
             }))}
             onChange={onChange}

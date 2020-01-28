@@ -9,8 +9,8 @@ export function getCategories() {
 }
 
 export async function saveCategory(category) {
-  return fetch(baseUrl + (category.id || ""), {
-    method: category.id ? "PUT" : "POST",
+  return fetch(baseUrl + (category._id || ""), {
+    method: category._id ? "PUT" : "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(category)
   })

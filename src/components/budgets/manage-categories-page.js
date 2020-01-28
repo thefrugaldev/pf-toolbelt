@@ -51,8 +51,8 @@ const ManageCategoriesPage = ({
         <tbody>
           {categories.map(category => {
             return (
-              <tr key={category.id}>
-                <th>{category.id}</th>
+              <tr key={category._id}>
+                <th>{category._id}</th>
                 <td>{category.name}</td>
                 <td>
                   <button

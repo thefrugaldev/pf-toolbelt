@@ -6,7 +6,6 @@ afterEach(cleanup);
 
 const renderBudgetForm = args => {
   const defaultProps = {
-    users: [],
     budget: {},
     saving: false,
     errors: {},

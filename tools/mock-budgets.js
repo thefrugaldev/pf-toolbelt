@@ -5,8 +5,7 @@ const budgets = [
     categoryId: 1,
     month: 1,
     day: 20,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 2,
@@ -14,8 +13,7 @@ const budgets = [
     categoryId: 2,
     month: 1,
     day: 1,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 3,
@@ -23,8 +21,7 @@ const budgets = [
     categoryId: 5,
     month: 1,
     day: 15,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 4,
@@ -32,8 +29,7 @@ const budgets = [
     categoryId: 1,
     month: 2,
     day: 20,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 5,
@@ -41,8 +37,7 @@ const budgets = [
     categoryId: 6,
     month: 2,
     day: 12,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 6,
@@ -50,8 +45,7 @@ const budgets = [
     categoryId: 6,
     month: 2,
     day: 17,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 7,
@@ -59,8 +53,7 @@ const budgets = [
     categoryId: 1,
     month: 3,
     day: 20,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 8,
@@ -68,8 +61,7 @@ const budgets = [
     categoryId: 4,
     month: 3,
     day: 10,
-    year: 2019,
-    userId: 2
+    year: 2019
   },
   {
     id: 9,
@@ -77,8 +69,7 @@ const budgets = [
     categoryId: 2,
     month: 3,
     day: 20,
-    year: 2019,
-    userId: 1
+    year: 2019
   },
   {
     id: 10,
@@ -86,14 +77,8 @@ const budgets = [
     categoryId: 1,
     month: 4,
     day: 20,
-    year: 2019,
-    userId: 1
+    year: 2019
   }
-];
-
-const users = [
-  { id: 1, name: "Clayton" },
-  { id: 2, name: "Test User" }
 ];
 
 const categories = [
@@ -129,14 +114,12 @@ const newBudget = {
   categoryId: null,
   month: new Date().getMonth() + 1,
   day: new Date().getDate(),
-  year: new Date().getFullYear(),
-  userId: null
+  year: new Date().getFullYear()
 };
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
   newBudget,
   budgets,
-  users,
   categories
 };

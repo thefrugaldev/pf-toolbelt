@@ -10,7 +10,6 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
           <th>Title</th>
           <th>Category</th>
           <th>Date</th>
-          <th>User</th>
           <th />
         </tr>
       </thead>
@@ -23,7 +22,6 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
               </td>
               <td>{budget.categoryName}</td>
               <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>
-              <td>{budget.userName}</td>
               <td>
                 <button
                   className="btn btn-outline-danger"

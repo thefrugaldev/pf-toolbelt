@@ -67,7 +67,6 @@ function createSlug(value) {
 function validateBudget(budget) {
   debugger;
   if (!budget.title) return "Title is required.";
-  if (!budget.userId) return "User is required.";
   if (!budget.month) return "Month is required.";
   if (!budget.day) return "Day is required.";
   if (!budget.year) return "Year is required.";

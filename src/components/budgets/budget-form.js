@@ -7,7 +7,6 @@ import SelectInput from "../common/select-input";
 
 const BudgetForm = ({
   budget,
-  users,
   categories,
   onSave,
   onChange,
@@ -122,19 +121,6 @@ const BudgetForm = ({
           />
         </div>
       </div>
-
-      <SelectInput
-        name="userId"
-        label="User"
-        value={budget.userId || ""}
-        defaultOption="Select User"
-        options={users.map(user => ({
-          value: user.id,
-          text: user.name
-        }))}
-        onChange={onChange}
-        error={errors.user}
-      />
       <div className="level">
         <div className="level-left">
           <SelectInput
@@ -164,7 +150,6 @@ const BudgetForm = ({
 };
 
 BudgetForm.propTypes = {
-  users: PropTypes.array.isRequired,
   budget: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   errors: PropTypes.object,

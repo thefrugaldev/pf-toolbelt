@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
 import { loadBudgets, saveBudget } from "../../redux/actions/budget-actions";
-import { loadUsers } from "../../redux/actions/user-actions";
 import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import BudgetForm from "./budget-form";
@@ -13,10 +12,8 @@ import Spinner from "../common/spinner";
 
 const ManageBudgetPage = ({
   budgets,
-  users,
   categories,
   loadBudgets,
-  loadUsers,
   loadCategories,
   saveBudget,
   history,
@@ -34,11 +31,6 @@ const ManageBudgetPage = ({
     } else {
       setBudget({ ...props.budget });
     }
-    if (users.length === 0) {
-      loadUsers().catch(error => {
-        alert(`Loading users failed ${error}`);
-      });
-    }
     loadCategories().catch(error => {
       alert(`Loading categories failed ${error}`);
     });
@@ -53,11 +45,10 @@ const ManageBudgetPage = ({
   };
 
   const formIsValid = () => {
-    const { title, userId, categoryId } = budget;
+    const { title, categoryId } = budget;
     const errors = {};
 
     if (!title) errors.title = "Title is required";
-    if (!userId) errors.user = "User is required";
     if (!categoryId) errors.category = "Category is required";
 
     setErrors(errors);
@@ -80,13 +71,12 @@ const ManageBudgetPage = ({
       });
   };
 
-  return users.length === 0 || budgets.length === 0 ? (
+  return budgets.length === 0 ? (
     <Spinner />
   ) : (
     <BudgetForm
       budget={budget}
       errors={errors}
-      users={users}
       categories={categories}
       onChange={handleChange}
       onSave={handleSave}
@@ -98,10 +88,8 @@ const ManageBudgetPage = ({
 ManageBudgetPage.propTypes = {
   budget: PropTypes.object.isRequired,
   budgets: PropTypes.array.isRequired,
-  users: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,
-  loadUsers: PropTypes.func.isRequired,
   loadCategories: PropTypes.func.isRequired,
   saveBudget: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired
@@ -111,7 +99,7 @@ export function getBudgetById(budgets, id) {
   return budgets.find(budget => budget.id === parseInt(id)) || null;
 }
 
-const mapStateToProps = ({ budgets, users, categories }, ownProps) => {
+const mapStateToProps = ({ budgets, categories }, ownProps) => {
   const id = ownProps.match.params.id;
   const budget =
     id && budgets.length > 0 ? getBudgetById(budgets, id) : newBudget;
@@ -119,7 +107,6 @@ const mapStateToProps = ({ budgets, users, categories }, ownProps) => {
   return {
     budget,
     budgets,
-    users,
     categories
   };
 };
@@ -127,7 +114,6 @@ const mapStateToProps = ({ budgets, users, categories }, ownProps) => {
 const mapDispatchToProps = {
   saveBudget,
   loadBudgets,
-  loadUsers,
   loadCategories
 };
 

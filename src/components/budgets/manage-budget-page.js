@@ -96,11 +96,11 @@ ManageBudgetPage.propTypes = {
 };
 
 export function getBudgetById(budgets, id) {
-  return budgets.find(budget => budget._id === parseInt(id)) || null;
+  return budgets.find(budget => budget._id === id) || null;
 }
 
 const mapStateToProps = ({ budgets, categories }, ownProps) => {
-  const id = ownProps.match.params._id;
+  const id = ownProps.match.params.id;
   const budget =
     id && budgets.length > 0 ? getBudgetById(budgets, id) : newBudget;
 

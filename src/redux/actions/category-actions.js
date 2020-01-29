@@ -22,7 +22,6 @@ export const loadCategories = () => async dispatch => {
   dispatch(beginApiCall());
   try {
     const categories = await categoryApi.getCategories();
-    console.log(categories);
     dispatch(loadCategoriesSuccess(categories));
   } catch (error) {
     dispatch(apiCallError(error));

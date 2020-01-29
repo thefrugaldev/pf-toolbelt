@@ -24,7 +24,6 @@ export function loadBudgets() {
     return budgetApi
       .getBudgets()
       .then(budgets => {
-        console.log(budgets);
         dispatch(loadBudgetsSuccess(budgets));
       })
       .catch(error => {

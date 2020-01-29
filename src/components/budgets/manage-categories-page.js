@@ -76,7 +76,7 @@ const ManageCategoriesPage = ({
             </td>
             <td>
               <button onClick={handleSave} className="button is-success">
-                Success
+                Save
               </button>
             </td>
           </tr>

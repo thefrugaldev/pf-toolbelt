@@ -27,9 +27,9 @@ const BudgetsPage = ({
   }, []);
 
   const handleDeleteBudgetAsync = async budget => {
-    toast.success("Budget Deleted");
     try {
       await deleteBudget(budget);
+      toast.success("Budget Deleted");
     } catch (error) {
       toast.error(`Delete Failed. ${error}`, { autoClose: false });
     }

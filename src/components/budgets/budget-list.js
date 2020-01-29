@@ -24,7 +24,7 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
               <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>
               <td>
                 <button
-                  className="btn btn-outline-danger"
+                  className="button is-danger"
                   onClick={() => onDeleteClick(budget)}
                 >
                   Delete

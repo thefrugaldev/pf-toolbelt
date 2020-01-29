@@ -1,5 +1,6 @@
 export async function handleResponse(response) {
-  if (response.ok) return response.json();
+  // Response body is empty on deletes
+  if (response.ok) return response.status === 204 ? {} : response.json();
   if (response.status == 400) {
     // Server-side validation error occurred
     // Returns a string error message (parse text instead of json)

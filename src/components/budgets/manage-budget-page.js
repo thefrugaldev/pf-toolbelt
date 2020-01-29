@@ -40,7 +40,7 @@ const ManageBudgetPage = ({
     const { name, value } = event.target;
     setBudget(prevBudget => ({
       ...prevBudget,
-      [name]: name.toLowerCase().includes("id") ? parseInt(value, 10) : value
+      [name]: value
     }));
   };
 

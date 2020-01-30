@@ -1,9 +1,11 @@
-import { handleResponse, handleError } from "./api-utils";
+import { handleResponse, handleError, buildQueryString } from "./api-utils";
 
 const baseUrl = process.env.API_URL + "/budgets/";
 
-export function getBudgets() {
-  return fetch(baseUrl)
+export function getBudgets(filters) {
+  const requestUrl = baseUrl.concat(buildQueryString(filters));
+
+  return fetch(requestUrl)
     .then(handleResponse)
     .catch(handleError);
 }

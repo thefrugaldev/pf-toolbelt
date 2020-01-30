@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 // Components
 import TextInput from "../common/text-input";
 import SelectInput from "../common/select-input";
+// Utils
+import { monthNames } from "../../utils/datetime-helpers";
 
 const BudgetForm = ({
   budget,
@@ -34,21 +36,6 @@ const BudgetForm = ({
   useEffect(() => {
     getDaysInMonth(selectedDate.month, selectedDate.year);
   }, [selectedDate.month]);
-
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  ];
 
   const onDateChange = event => {
     const { name, value } = event.target;
@@ -137,7 +124,7 @@ const BudgetForm = ({
           />
         </div>
         <Link to="/categories" className="button is-link is-light level-right">
-          Create new Category
+          Manage Categories
         </Link>
       </div>
       <div className="control">

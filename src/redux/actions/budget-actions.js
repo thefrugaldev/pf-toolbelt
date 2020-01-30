@@ -18,11 +18,11 @@ export function deleteBudgetOptimistic(budget) {
   return { type: actionTypes.DELETE_BUDGET_OPTIMISTIC, budget };
 }
 
-export function loadBudgets() {
+export function loadBudgets(filters) {
   return function(dispatch) {
     dispatch(beginApiCall());
     return budgetApi
-      .getBudgets()
+      .getBudgets(filters)
       .then(budgets => {
         dispatch(loadBudgetsSuccess(budgets));
       })

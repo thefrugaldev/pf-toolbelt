@@ -16,3 +16,21 @@ export function handleError(error) {
   console.error(`API call failed.`, error);
   throw error;
 }
+
+export function buildQueryString(filters) {
+  if (!filters) return "";
+
+  let queryString = "?";
+  const filtersArray = Object.keys(filters);
+  const firstItem = filtersArray[0];
+  const lastItem = filtersArray.length - 1;
+
+  filtersArray.forEach(key => {
+    queryString =
+      key === firstItem || key === lastItem
+        ? queryString.concat(`${key}=${filters[key]}`)
+        : queryString.concat(`&${key}=${filters[key]}`);
+  });
+
+  return queryString;
+}

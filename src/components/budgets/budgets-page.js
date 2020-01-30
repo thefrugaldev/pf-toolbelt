@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,6 +9,8 @@ import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import BudgetList from "./budget-list";
 import Spinner from "../common/spinner";
+// Utils
+import { monthNames } from "../../utils/datetime-helpers";
 
 const BudgetsPage = ({
   budgets,
@@ -17,14 +19,21 @@ const BudgetsPage = ({
   loadCategories,
   loading
 }) => {
+  const [budgetMonth, setBudgetMonth] = useState(new Date().getMonth() + 1);
+  const [budgetYear, setBudgetYear] = useState(new Date().getFullYear());
+
   useEffect(() => {
-    loadBudgets().catch(error => {
-      console.log(`Loading budgets failed ${error}`);
-    });
+    getBudgetsByMonthAndYear();
     loadCategories().catch(error => {
       console.log(`Loading categories failed ${error}`);
     });
-  }, []);
+  }, [budgetMonth]);
+
+  const getBudgetsByMonthAndYear = () => {
+    loadBudgets({ month: budgetMonth, year: budgetYear }).catch(error => {
+      console.log(`Loading budgets failed ${error}`);
+    });
+  };
 
   const handleDeleteBudgetAsync = async budget => {
     try {
@@ -37,6 +46,15 @@ const BudgetsPage = ({
 
   return (
     <>
+      <div className="tabs">
+        <ul>
+          {monthNames.map((month, index) => (
+            <li key={month} onClick={() => setBudgetMonth(index + 1)}>
+              <a>{month}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
       <h2>Budgets</h2>
       {loading ? (
         <Spinner />
@@ -57,7 +75,7 @@ const BudgetsPage = ({
               to="/categories"
               className="button is-link is-light level-right"
             >
-              Update Categories
+              Manage Categories
             </Link>
           </div>
         </>

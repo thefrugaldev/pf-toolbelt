@@ -11,6 +11,7 @@ import BudgetList from "./budget-list";
 import Spinner from "../common/spinner";
 // Utils
 import { monthNames } from "../../utils/datetime-helpers";
+import NoBudgetNotification from "./no-budget-notification";
 
 const BudgetsPage = ({
   budgets,
@@ -19,18 +20,18 @@ const BudgetsPage = ({
   loadCategories,
   loading
 }) => {
-  const [budgetMonth, setBudgetMonth] = useState(new Date().getMonth() + 1);
-  const [budgetYear, setBudgetYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
     getBudgetsByMonthAndYear();
     loadCategories().catch(error => {
       console.log(`Loading categories failed ${error}`);
     });
-  }, [budgetMonth]);
+  }, [selectedMonth]);
 
   const getBudgetsByMonthAndYear = () => {
-    loadBudgets({ month: budgetMonth, year: budgetYear }).catch(error => {
+    loadBudgets({ month: selectedMonth, year: selectedYear }).catch(error => {
       console.log(`Loading budgets failed ${error}`);
     });
   };
@@ -46,19 +47,23 @@ const BudgetsPage = ({
 
   return (
     <>
-      <div className="tabs">
+      <h2 className="title">{selectedYear} Budgets</h2>
+      <div className="tabs is-boxed">
         <ul>
           {monthNames.map((month, index) => (
-            <li key={month} onClick={() => setBudgetMonth(index + 1)}>
+            <li
+              key={month}
+              onClick={() => setSelectedMonth(index + 1)}
+              className={selectedMonth == index + 1 ? "is-active" : ""}
+            >
               <a>{month}</a>
             </li>
           ))}
         </ul>
       </div>
-      <h2>Budgets</h2>
       {loading ? (
         <Spinner />
-      ) : (
+      ) : budgets.length ? (
         <>
           <BudgetList
             onDeleteClick={handleDeleteBudgetAsync}
@@ -79,6 +84,8 @@ const BudgetsPage = ({
             </Link>
           </div>
         </>
+      ) : (
+        <NoBudgetNotification />
       )}
     </>
   );

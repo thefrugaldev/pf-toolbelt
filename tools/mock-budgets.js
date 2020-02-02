@@ -111,10 +111,12 @@ const categories = [
 const newBudget = {
   _id: null,
   title: "",
-  categoryId: null,
+  price: "",
   month: new Date().getMonth() + 1,
   day: new Date().getDate(),
-  year: new Date().getFullYear()
+  year: new Date().getFullYear(),
+  categoryId: null,
+  description: ""
 };
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 // Components
 import TextInput from "../common/text-input";
 import SelectInput from "../common/select-input";
 // Utils
 import { monthNames } from "../../utils/datetime-helpers";
+import TextArea from "../common/text-area";
 
 const BudgetForm = ({
   budget,
@@ -73,6 +73,13 @@ const BudgetForm = ({
         onChange={onChange}
         error={errors.title}
       />
+      <TextInput
+        name="price"
+        label="Price"
+        value={budget.price}
+        onChange={onChange}
+        error={errors.price}
+      />
       <div className="field">
         <label className="label">Date</label>
         <div className="field-body">
@@ -123,10 +130,14 @@ const BudgetForm = ({
             error={errors.category}
           />
         </div>
-        <Link to="/categories" className="button is-link is-light level-right">
-          Manage Categories
-        </Link>
       </div>
+      <TextArea
+        name="description"
+        label="Description"
+        value={budget.description}
+        onChange={onChange}
+        error={errors.description}
+      />
       <div className="control">
         <button type="submit" disabled={saving} className="button is-primary">
           {saving ? "Saving..." : "Save"}

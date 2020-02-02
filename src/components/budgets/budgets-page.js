@@ -48,7 +48,7 @@ const BudgetsPage = ({
   return (
     <>
       <h2 className="title">{selectedYear} Budgets</h2>
-      <div className="tabs is-boxed">
+      <div className="tabs is-boxed is-small">
         <ul>
           {monthNames.map((month, index) => (
             <li
@@ -69,24 +69,18 @@ const BudgetsPage = ({
             onDeleteClick={handleDeleteBudgetAsync}
             budgets={budgets}
           />
-          <div className="level">
-            <Link
-              to="/budget"
-              className="button is-primary is-light level-left"
-            >
-              Add Budget
-            </Link>
-            <Link
-              to="/categories"
-              className="button is-link is-light level-right"
-            >
-              Manage Categories
-            </Link>
-          </div>
         </>
       ) : (
         <NoBudgetNotification />
       )}
+      <div className="level">
+        <Link to="/budget" className="button is-primary is-light level-left">
+          Add Budget
+        </Link>
+        <Link to="/categories" className="button is-link is-light level-right">
+          Manage Categories
+        </Link>
+      </div>
     </>
   );
 };

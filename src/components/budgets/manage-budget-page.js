@@ -37,6 +37,7 @@ const ManageBudgetPage = ({
   }, [props.budget]);
 
   const handleChange = event => {
+    console.log(budget);
     const { name, value } = event.target;
     setBudget(prevBudget => ({
       ...prevBudget,
@@ -45,10 +46,11 @@ const ManageBudgetPage = ({
   };
 
   const formIsValid = () => {
-    const { title, categoryId } = budget;
+    const { title, categoryId, price } = budget;
     const errors = {};
 
     if (!title) errors.title = "Title is required";
+    if (!price) errors.price = "Price is required";
     if (!categoryId) errors.category = "Category is required";
 
     setErrors(errors);

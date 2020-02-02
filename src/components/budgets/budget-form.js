@@ -60,7 +60,7 @@ const BudgetForm = ({
 
   return (
     <form onSubmit={onSave}>
-      <h2>{budget._id ? "Edit" : "Add"} Budget</h2>
+      <h2 className="title">{budget._id ? "Edit" : "Add"} Budget</h2>
       {errors.onSave && (
         <div className="alert alert-danger" role="alert">
           {errors.onSave}

@@ -37,7 +37,6 @@ const ManageBudgetPage = ({
   }, [props.budget]);
 
   const handleChange = event => {
-    console.log(budget);
     const { name, value } = event.target;
     setBudget(prevBudget => ({
       ...prevBudget,

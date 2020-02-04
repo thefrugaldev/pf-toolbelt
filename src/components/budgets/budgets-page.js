@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
@@ -9,6 +8,7 @@ import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import BudgetList from "./budget-list";
 import Spinner from "../common/spinner";
+import BudgetPageFooter from "./budget-page-footer";
 // Utils
 import { monthNames } from "../../utils/datetime-helpers";
 import NoBudgetNotification from "./no-budget-notification";
@@ -73,17 +73,7 @@ const BudgetsPage = ({
       ) : (
         <NoBudgetNotification />
       )}
-      <div className="level">
-        <Link to="/budget" className="button is-primary is-light">
-          Add Budget
-        </Link>
-        <Link to="/budgets/reports" className="button is-success is-light">
-          View Reports
-        </Link>
-        <Link to="/categories" className="button is-link is-light">
-          Manage Categories
-        </Link>
-      </div>
+      <BudgetPageFooter />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SelectInput = ({
   name,
@@ -8,9 +9,10 @@ const SelectInput = ({
   defaultOption,
   value,
   error,
+  iconClass,
   options
 }) => {
-  let selectClass = "select is-fullwidth";
+  let selectClass = `select is-fullwidth`;
   if (error && error.length > 0) {
     selectClass += " " + "is-danger";
   }
@@ -22,7 +24,9 @@ const SelectInput = ({
           {label}
         </label>
       )}
-      <div className="control is-expanded">
+      <div
+        className={`control is-expanded ${iconClass ? `has-icons-left` : ""}`}
+      >
         <div className={selectClass}>
           <select
             name={name}
@@ -40,6 +44,11 @@ const SelectInput = ({
             })}
           </select>
         </div>
+        {iconClass && (
+          <div className={`icon is-left ${iconClass}`}>
+            <FontAwesomeIcon icon={["fas", iconClass]} />
+          </div>
+        )}
         {error && <div className="help is-danger">{error}</div>}
       </div>
     </div>
@@ -53,6 +62,7 @@ SelectInput.propTypes = {
   defaultOption: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   error: PropTypes.string,
+  iconClass: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object)
 };
 

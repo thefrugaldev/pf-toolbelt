@@ -10,6 +10,7 @@ import {
 // Components
 import Spinner from "../common/spinner";
 import TextInput from "../common/text-input";
+import IconPicker from "../common/icon-picker";
 
 const ManageCategoriesPage = ({
   categories,
@@ -46,6 +47,7 @@ const ManageCategoriesPage = ({
     <Spinner />
   ) : (
     <>
+      <IconPicker />
       <h2 className="is-2">Your Current Categories</h2>
       <table className="table">
         <tbody>

@@ -26,23 +26,25 @@ function App({ fetchUser }) {
   }, []);
 
   return (
-    <div className="container-fluid">
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/about" component={AboutPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/cards" component={CardsPage} />
-        <PrivateRoute exact path="/budgets" component={BudgetsPage} />
-        <PrivateRoute exact path="/budgets/reports" component={ReportsPage} />
-        <PrivateRoute path="/budget/:id" component={ManageBudgetPage} />
-        <PrivateRoute path="/budget" component={ManageBudgetPage} />
-        <PrivateRoute path="/categories" component={ManageCategoriesPage} />
-        <Route path="/register" component={Register} />
-        <Route component={PageNotFound} />
-      </Switch>
-      <ToastContainer autoClose={3000} hideProgressBar />
-    </div>
+    <section className="section">
+      <div className="container">
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/login" component={Login} />
+          <Route path="/cards" component={CardsPage} />
+          <PrivateRoute exact path="/budgets" component={BudgetsPage} />
+          <PrivateRoute exact path="/budgets/reports" component={ReportsPage} />
+          <PrivateRoute path="/budget/:id" component={ManageBudgetPage} />
+          <PrivateRoute path="/budget" component={ManageBudgetPage} />
+          <PrivateRoute path="/categories" component={ManageCategoriesPage} />
+          <Route path="/register" component={Register} />
+          <Route component={PageNotFound} />
+        </Switch>
+        <ToastContainer autoClose={3000} hideProgressBar />
+      </div>
+    </section>
   );
 }
 

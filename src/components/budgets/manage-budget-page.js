@@ -45,11 +45,11 @@ const ManageBudgetPage = ({
   };
 
   const formIsValid = () => {
-    const { title, categoryId, price } = budget;
+    const { title, categoryId, amount } = budget;
     const errors = {};
 
     if (!title) errors.title = "Title is required";
-    if (!price) errors.price = "Price is required";
+    if (!amount) errors.amount = "Amount is required";
     if (!categoryId) errors.category = "Category is required";
 
     setErrors(errors);

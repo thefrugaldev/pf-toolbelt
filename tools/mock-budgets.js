@@ -111,11 +111,12 @@ const categories = [
 const newBudget = {
   _id: null,
   title: "",
-  price: "",
+  amount: "",
   month: new Date().getMonth() + 1,
   day: new Date().getDate(),
   year: new Date().getFullYear(),
   categoryId: null,
+  savingsAccountId: null,
   description: ""
 };
 

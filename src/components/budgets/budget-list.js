@@ -50,7 +50,7 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
                   <Link to={`/budget/${budget._id}`}>{budget.title}</Link>
                 </td>
                 <td>{budget.categoryName}</td>
-                <td>{budget.price && `$${budget.price}`}</td>
+                <td>{budget.amount && `$${budget.amount}`}</td>
                 <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>
                 <td>
                   {budget.description && (

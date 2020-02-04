@@ -17,6 +17,7 @@ const BudgetForm = ({
 }) => {
   const [budgetYears, setBudgetYears] = useState([]);
   const [daysInMonth, setDaysInMonth] = useState([]);
+  const budgetTypes = ["Expense", "Saving"];
   const [selectedDate, setSelectedDate] = useState({
     month: budget.month,
     day: budget.day,
@@ -74,11 +75,11 @@ const BudgetForm = ({
         error={errors.title}
       />
       <TextInput
-        name="price"
-        label="Price"
-        value={budget.price}
+        name="amount"
+        label="Amount"
+        value={budget.amount}
         onChange={onChange}
-        error={errors.price}
+        error={errors.amount}
       />
       <div className="field">
         <label className="label">Date</label>
@@ -115,11 +116,23 @@ const BudgetForm = ({
           />
         </div>
       </div>
-      <div className="level">
-        <div className="level-left">
+      <div className="field level">
+        <div className="field-body">
+          <SelectInput
+            name="type"
+            label="Budget Type"
+            value={budget.type || ""}
+            defaultOption="Select Budget Type"
+            options={budgetTypes.map(type => ({
+              value: type,
+              text: type
+            }))}
+            onChange={onChange}
+            error={errors.budgetType}
+          />
           <SelectInput
             name="categoryId"
-            label="Category"
+            label="Expense Category"
             value={budget.categoryId || ""}
             defaultOption="Select Category"
             options={categories.map(cat => ({

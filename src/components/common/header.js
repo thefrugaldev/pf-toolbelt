@@ -23,7 +23,7 @@ const Header = ({ logout }) => {
 
   return (
     <>
-      <nav className="level">
+      <nav className="navbar level">
         <NavLink
           to="/"
           activeStyle={activeStyle}

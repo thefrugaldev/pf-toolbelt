@@ -48,7 +48,7 @@ const BudgetsPage = ({
   return (
     <>
       <h2 className="title">{selectedYear} Budgets</h2>
-      <div className="tabs is-boxed is-small">
+      <div className="tabs is-boxed">
         <ul>
           {monthNames.map((month, index) => (
             <li

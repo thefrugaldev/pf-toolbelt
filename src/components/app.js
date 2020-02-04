@@ -18,6 +18,7 @@ import ManageCategoriesPage from "./budgets/manage-categories-page";
 import Login from "./common/login";
 import Register from "./common/register";
 import PrivateRoute from "./common/private-route";
+import ReportsPage from "./budgets/reports-page";
 
 function App({ fetchUser }) {
   useLayoutEffect(() => {
@@ -32,7 +33,8 @@ function App({ fetchUser }) {
         <Route path="/about" component={AboutPage} />
         <Route path="/login" component={Login} />
         <Route path="/cards" component={CardsPage} />
-        <PrivateRoute path="/budgets" component={BudgetsPage} />
+        <PrivateRoute exact path="/budgets" component={BudgetsPage} />
+        <PrivateRoute exact path="/budgets/reports" component={ReportsPage} />
         <PrivateRoute path="/budget/:id" component={ManageBudgetPage} />
         <PrivateRoute path="/budget" component={ManageBudgetPage} />
         <PrivateRoute path="/categories" component={ManageCategoriesPage} />

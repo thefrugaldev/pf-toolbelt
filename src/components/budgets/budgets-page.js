@@ -74,10 +74,13 @@ const BudgetsPage = ({
         <NoBudgetNotification />
       )}
       <div className="level">
-        <Link to="/budget" className="button is-primary is-light level-left">
+        <Link to="/budget" className="button is-primary is-light">
           Add Budget
         </Link>
-        <Link to="/categories" className="button is-link is-light level-right">
+        <Link to="/budgets/reports" className="button is-success is-light">
+          View Reports
+        </Link>
+        <Link to="/categories" className="button is-link is-light">
           Manage Categories
         </Link>
       </div>

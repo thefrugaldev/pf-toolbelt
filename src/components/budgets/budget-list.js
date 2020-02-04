@@ -36,7 +36,7 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
           <tr>
             <th>Title</th>
             <th>Category</th>
-            <th>Price</th>
+            <th>Amount</th>
             <th>Date</th>
             <th>Notes</th>
             <th />

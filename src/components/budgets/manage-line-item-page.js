@@ -10,7 +10,7 @@ import LineItemForm from "./line-item-form";
 import { newBudget } from "../../../tools/mock-budgets";
 import Spinner from "../common/spinner";
 
-const ManageBudgetPage = ({
+const ManageLineItemPage = ({
   budgets,
   categories,
   loadBudgets,
@@ -19,7 +19,7 @@ const ManageBudgetPage = ({
   history,
   ...props
 }) => {
-  const [budget, setBudget] = useState({ ...props.budget });
+  const [lineItem, setLineItem] = useState({ ...props.budget });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
@@ -29,7 +29,7 @@ const ManageBudgetPage = ({
         alert(`Loading budgets failed ${error}`);
       });
     } else {
-      setBudget({ ...props.budget });
+      setLineItem({ ...props.budget });
     }
     loadCategories().catch(error => {
       alert(`Loading categories failed ${error}`);
@@ -38,19 +38,19 @@ const ManageBudgetPage = ({
 
   const handleChange = event => {
     const { name, value } = event.target;
-    setBudget(prevBudget => ({
-      ...prevBudget,
+    setLineItem(prevLineItem => ({
+      ...prevLineItem,
       [name]: value
     }));
   };
 
   const formIsValid = () => {
-    const { title, categoryId, amount } = budget;
+    const { title, amount } = lineItem;
     const errors = {};
 
     if (!title) errors.title = "Title is required";
     if (!amount) errors.amount = "Amount is required";
-    if (!categoryId) errors.category = "Category is required";
+    // if (!categoryId) errors.category = "Category is required";
 
     setErrors(errors);
     // Form is valid if the errors object still has no properties
@@ -61,7 +61,7 @@ const ManageBudgetPage = ({
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
-    saveBudget(budget)
+    saveBudget(lineItem)
       .then(() => {
         toast.success("Budget Saved.");
         history.push("/budgets");
@@ -76,7 +76,7 @@ const ManageBudgetPage = ({
     <Spinner />
   ) : (
     <LineItemForm
-      budget={budget}
+      lineItem={lineItem}
       errors={errors}
       categories={categories}
       onChange={handleChange}
@@ -86,7 +86,7 @@ const ManageBudgetPage = ({
   );
 };
 
-ManageBudgetPage.propTypes = {
+ManageLineItemPage.propTypes = {
   budget: PropTypes.object.isRequired,
   budgets: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
@@ -96,17 +96,17 @@ ManageBudgetPage.propTypes = {
   history: PropTypes.object.isRequired
 };
 
-export function getBudgetById(budgets, id) {
-  return budgets.find(budget => budget._id === id) || null;
+export function getLineItemById(lineItems, id) {
+  return lineItems.find(lineItem => lineItem._id === id) || null;
 }
 
 const mapStateToProps = ({ budgets, categories }, ownProps) => {
   const id = ownProps.match.params.id;
-  const budget =
-    id && budgets.length > 0 ? getBudgetById(budgets, id) : newBudget;
+  const lineItem =
+    id && budgets.length > 0 ? getLineItemById(budgets, id) : newBudget;
 
   return {
-    budget,
+    lineItem,
     budgets,
     categories
   };
@@ -118,4 +118,4 @@ const mapDispatchToProps = {
   loadCategories
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageBudgetPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageLineItemPage);

@@ -12,7 +12,7 @@ import AboutPage from "./about/about-page";
 import Header from "./common/header";
 import PageNotFound from "./page-not-found";
 import BudgetsPage from "./budgets/budgets-page";
-import ManageBudgetPage from "./budgets/manage-budget-page";
+import ManageLineItemPage from "./budgets/manage-line-item-page";
 import ManageCategoriesPage from "./budgets/manage-categories-page";
 import Login from "./common/login";
 import Register from "./common/register";
@@ -34,8 +34,14 @@ function App({ fetchUser }) {
           <Route path="/login" component={Login} />
           <PrivateRoute exact path="/budgets" component={BudgetsPage} />
           <PrivateRoute exact path="/budgets/reports" component={ReportsPage} />
-          <PrivateRoute path="/budget/:id" component={ManageBudgetPage} />
-          <PrivateRoute path="/budget" component={ManageBudgetPage} />
+          <PrivateRoute
+            path="/budgets/:id/line-item/:id"
+            component={ManageLineItemPage}
+          />
+          <PrivateRoute
+            path="/budgets/:id/line-item"
+            component={ManageLineItemPage}
+          />
           <PrivateRoute path="/categories" component={ManageCategoriesPage} />
           <Route path="/register" component={Register} />
           <Route component={PageNotFound} />

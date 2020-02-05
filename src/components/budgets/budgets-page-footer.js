@@ -6,7 +6,7 @@ import {
   faMinusSquare
 } from "@fortawesome/free-regular-svg-icons";
 
-const BudgetPageFooter = () => {
+const BudgetsPageFooter = () => {
   const [activeDropdown, setActiveDropdown] = useState(false);
 
   return (
@@ -33,10 +33,10 @@ const BudgetPageFooter = () => {
         </div>
         <div className="dropdown-menu" id="add-budget-menu" role="menu">
           <div className="dropdown-content">
-            <Link to="/budget" className="has-text-danger dropdown-item">
+            <Link to="/budgets/" className="has-text-danger dropdown-item">
               Expense
             </Link>
-            <Link to="/budget" className="has-text-success dropdown-item">
+            <Link to="/budgets/" className="has-text-success dropdown-item">
               Savings
             </Link>
           </div>
@@ -52,4 +52,4 @@ const BudgetPageFooter = () => {
   );
 };
 
-export default BudgetPageFooter;
+export default BudgetsPageFooter;

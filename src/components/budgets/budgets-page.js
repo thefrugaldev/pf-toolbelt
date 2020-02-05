@@ -4,36 +4,30 @@ import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
 import { loadBudgets, deleteBudget } from "../../redux/actions/budget-actions";
-import { loadCategories } from "../../redux/actions/category-actions";
 //Components
-import BudgetList from "./budget-list";
+import LineItemsList from "./line-item-list";
 import Spinner from "../common/spinner";
-import BudgetPageFooter from "./budget-page-footer";
+import BudgetsPageFooter from "./budgets-page-footer";
 // Utils
 import { monthNames } from "../../utils/datetime-helpers";
 import NoBudgetNotification from "./no-budget-notification";
 
-const BudgetsPage = ({
-  budgets,
-  loadBudgets,
-  deleteBudget,
-  loadCategories,
-  loading
-}) => {
+const BudgetsPage = ({ budgets, loadBudgets, loading }) => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [monthlyBudget, setMonthlyBudget] = useState();
 
   useEffect(() => {
-    getBudgetsByMonthAndYear();
-    loadCategories().catch(error => {
-      console.log(`Loading categories failed ${error}`);
-    });
-  }, [selectedMonth]);
-
-  const getBudgetsByMonthAndYear = () => {
-    loadBudgets({ month: selectedMonth, year: selectedYear }).catch(error => {
+    loadBudgets().catch(error => {
       console.log(`Loading budgets failed ${error}`);
     });
+  }, []);
+
+  const getBudgetByMonthAndYear = (month, year) => {
+    setSelectedMonth(month);
+    setMonthlyBudget(
+      budgets.find(budget => budget.month === month && budget.year === year)
+    );
   };
 
   const handleDeleteBudgetAsync = async budget => {
@@ -53,7 +47,7 @@ const BudgetsPage = ({
           {monthNames.map((month, index) => (
             <li
               key={month}
-              onClick={() => setSelectedMonth(index + 1)}
+              onClick={() => getBudgetByMonthAndYear(index + 1, selectedYear)}
               className={selectedMonth == index + 1 ? "is-active" : ""}
             >
               <a>{month}</a>
@@ -65,15 +59,15 @@ const BudgetsPage = ({
         <Spinner />
       ) : budgets.length ? (
         <>
-          <BudgetList
+          <LineItemsList
             onDeleteClick={handleDeleteBudgetAsync}
             budgets={budgets}
           />
         </>
       ) : (
-        <NoBudgetNotification />
+        <NoBudgetNotification month={selectedMonth} year={selectedYear} />
       )}
-      <BudgetPageFooter />
+      <BudgetsPageFooter />
     </>
   );
 };
@@ -81,33 +75,21 @@ const BudgetsPage = ({
 BudgetsPage.propTypes = {
   budgets: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,
-  loadCategories: PropTypes.func.isRequired,
+  // loadCategories: PropTypes.func.isRequired,
   deleteBudget: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ budgets, categories, apiCallsInProgress }) => {
+const mapStateToProps = ({ budgets, apiCallsInProgress }) => {
   return {
-    budgets:
-      categories.length === 0
-        ? []
-        : budgets.map(budget => {
-            return {
-              ...budget,
-              categoryName: budget.categoryId
-                ? categories.find(c => c._id === budget.categoryId).name
-                : "No Category Specified"
-            };
-          }),
-    categories,
+    budgets,
     loading: apiCallsInProgress > 0
   };
 };
 
 const mapDispatchToProps = {
   loadBudgets,
-  deleteBudget,
-  loadCategories
+  deleteBudget
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BudgetsPage);

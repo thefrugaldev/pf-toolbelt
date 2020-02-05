@@ -1,12 +1,12 @@
 import React from "react";
 import { cleanup, render } from "@testing-library/react";
-import BudgetForm from "./budget-form";
+import LineItemForm from "./line-item-form";
 
 afterEach(cleanup);
 
-const renderBudgetForm = args => {
+const renderLineItemForm = args => {
   const defaultProps = {
-    budget: {},
+    lineITem: {},
     saving: false,
     errors: {},
     onSave: () => {},
@@ -14,25 +14,25 @@ const renderBudgetForm = args => {
   };
 
   const props = { ...defaultProps, ...args };
-  return render(<BudgetForm {...props} />);
+  return render(<LineItemForm {...props} />);
 };
 
 it("should render form and header", () => {
-  const { getByText, container } = renderBudgetForm();
+  const { getByText, container } = renderLineItemForm();
 
   expect(container.getElementsByTagName("form").length).toEqual(1);
   getByText("Add Budget");
 });
 
 it('should label save button as "Save" when not saving', () => {
-  const { getByText, debug } = renderBudgetForm();
+  const { getByText, debug } = renderLineItemForm();
   //debug();
 
   getByText("Save");
 });
 
 it('should lable save button as "Saving..." when saving', () => {
-  const { getByText } = renderBudgetForm({ saving: true });
+  const { getByText } = renderLineItemForm({ saving: true });
 
   getByText("Saving...");
 });

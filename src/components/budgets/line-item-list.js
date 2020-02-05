@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
-const BudgetList = ({ budgets, onDeleteClick }) => {
+const LineItemList = ({ lineItems, onDeleteClick }) => {
   const [activeModal, setActiveModal] = useState(false);
   const [modalTitle, setModalTitle] = useState();
   const [modalBody, setModalBody] = useState();
@@ -43,20 +43,20 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
           </tr>
         </thead>
         <tbody>
-          {budgets.map(budget => {
+          {lineItems.map(lineItem => {
             return (
-              <tr key={budget._id}>
+              <tr key={lineItem._id}>
                 <td>
-                  <Link to={`/budget/${budget._id}`}>{budget.title}</Link>
+                  <Link to={`/budget/${lineItem._id}`}>{lineItem.title}</Link>
                 </td>
-                <td>{budget.categoryName}</td>
-                <td>{budget.amount && `$${budget.amount}`}</td>
-                <td>{`${budget.month}-${budget.day}-${budget.year}`}</td>
+                <td>{lineItem.categoryName}</td>
+                <td>{lineItem.amount && `$${lineItem.amount}`}</td>
+                <td>{`${lineItem.month}-${lineItem.day}-${lineItem.year}`}</td>
                 <td>
-                  {budget.description && (
+                  {lineItem.description && (
                     <span className="icon has-text-info">
                       <FontAwesomeIcon
-                        onClick={() => handleInfoClick(budget)}
+                        onClick={() => handleInfoClick(lineItem)}
                         icon={faInfoCircle}
                       />
                     </span>
@@ -65,7 +65,7 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
                 <td>
                   <button
                     className="button is-danger"
-                    onClick={() => onDeleteClick(budget)}
+                    onClick={() => onDeleteClick(lineItem)}
                   >
                     Delete
                   </button>
@@ -79,9 +79,9 @@ const BudgetList = ({ budgets, onDeleteClick }) => {
   );
 };
 
-BudgetList.propTypes = {
-  budgets: PropTypes.array.isRequired,
+LineItemList.propTypes = {
+  lineItems: PropTypes.array.isRequired,
   onDeleteClick: PropTypes.func.isRequired
 };
 
-export default BudgetList;
+export default LineItemList;

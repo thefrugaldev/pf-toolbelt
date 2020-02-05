@@ -19,6 +19,7 @@ const ManageCategoriesPage = ({
   deleteCategory
 }) => {
   const [newCategory, setNewCategory] = useState("");
+  const [selectedIcon, setSelectedIcon] = useState();
 
   useEffect(() => {
     loadCategories().catch(error => {
@@ -26,9 +27,8 @@ const ManageCategoriesPage = ({
     });
   }, []);
 
-  const handleChange = event => {
-    event.preventDefault();
-    setNewCategory(event.target.value);
+  const handleChange = (event, icon) => {
+    icon ? setSelectedIcon(icon) : setNewCategory(event.target.value);
   };
 
   const handleSave = () => {
@@ -47,7 +47,6 @@ const ManageCategoriesPage = ({
     <Spinner />
   ) : (
     <>
-      <IconPicker />
       <h2 className="is-2">Your Current Categories</h2>
       <table className="table">
         <tbody>
@@ -70,6 +69,7 @@ const ManageCategoriesPage = ({
           <tr>
             <th></th>
             <td>
+              <IconPicker onChange={handleChange} />
               <TextInput
                 name="category"
                 placeholder={"Create new category"}

@@ -32,14 +32,6 @@ const Header = ({ logout }) => {
         >
           Home
         </NavLink>
-        <NavLink
-          to="/cards"
-          activeStyle={activeStyle}
-          exact
-          className="link is-info"
-        >
-          Cards
-        </NavLink>
         {isAuthenticated && (
           <NavLink
             to="/budgets"

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { loadBudgets, saveBudget } from "../../redux/actions/budget-actions";
 import { loadCategories } from "../../redux/actions/category-actions";
 //Components
-import BudgetForm from "./budget-form";
+import LineItemForm from "./line-item-form";
 import { newBudget } from "../../../tools/mock-budgets";
 import Spinner from "../common/spinner";
 
@@ -75,7 +75,7 @@ const ManageBudgetPage = ({
   return budgets.length === 0 ? (
     <Spinner />
   ) : (
-    <BudgetForm
+    <LineItemForm
       budget={budget}
       errors={errors}
       categories={categories}

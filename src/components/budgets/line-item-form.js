@@ -7,8 +7,8 @@ import SelectInput from "../common/select-input";
 import { monthNames } from "../../utils/datetime-helpers";
 import TextArea from "../common/text-area";
 
-const BudgetForm = ({
-  budget,
+const LineItemForm = ({
+  lineItem,
   categories,
   onSave,
   onChange,
@@ -19,9 +19,9 @@ const BudgetForm = ({
   const [daysInMonth, setDaysInMonth] = useState([]);
   const budgetTypes = ["Expense", "Saving"];
   const [selectedDate, setSelectedDate] = useState({
-    month: budget.month,
-    day: budget.day,
-    year: budget.year
+    month: lineItem.month,
+    day: lineItem.day,
+    year: lineItem.year
   });
 
   useLayoutEffect(() => {
@@ -61,7 +61,7 @@ const BudgetForm = ({
 
   return (
     <form onSubmit={onSave}>
-      <h2 className="title">{budget._id ? "Edit" : "Add"} Budget</h2>
+      <h2 className="title">{lineItem._id ? "Edit" : "Add"} Budget</h2>
       {errors.onSave && (
         <div className="alert alert-danger" role="alert">
           {errors.onSave}
@@ -70,14 +70,14 @@ const BudgetForm = ({
       <TextInput
         name="title"
         label="Title"
-        value={budget.title}
+        value={lineItem.title}
         onChange={onChange}
         error={errors.title}
       />
       <TextInput
         name="amount"
         label="Amount"
-        value={budget.amount}
+        value={lineItem.amount}
         onChange={onChange}
         error={errors.amount}
       />
@@ -121,7 +121,7 @@ const BudgetForm = ({
           <SelectInput
             name="type"
             label="Budget Type"
-            value={budget.type || ""}
+            value={lineItem.type || ""}
             defaultOption="Select Budget Type"
             options={budgetTypes.map(type => ({
               value: type,
@@ -133,7 +133,7 @@ const BudgetForm = ({
           <SelectInput
             name="categoryId"
             label="Expense Category"
-            value={budget.categoryId || ""}
+            value={lineItem.categoryId || ""}
             defaultOption="Select Category"
             options={categories.map(cat => ({
               value: cat._id,
@@ -147,7 +147,7 @@ const BudgetForm = ({
       <TextArea
         name="description"
         label="Description"
-        value={budget.description}
+        value={lineItem.description}
         onChange={onChange}
         error={errors.description}
       />
@@ -160,8 +160,8 @@ const BudgetForm = ({
   );
 };
 
-BudgetForm.propTypes = {
-  budget: PropTypes.object.isRequired,
+LineItemForm.propTypes = {
+  lineItem: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
   errors: PropTypes.object,
   onSave: PropTypes.func.isRequired,
@@ -169,4 +169,4 @@ BudgetForm.propTypes = {
   saving: PropTypes.bool
 };
 
-export default BudgetForm;
+export default LineItemForm;

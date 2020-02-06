@@ -6,7 +6,7 @@ import {
   faMinusSquare
 } from "@fortawesome/free-regular-svg-icons";
 
-const BudgetsPageFooter = () => {
+const BudgetsPageFooter = ({ budgetId }) => {
   const [activeDropdown, setActiveDropdown] = useState(false);
 
   return (
@@ -33,10 +33,16 @@ const BudgetsPageFooter = () => {
         </div>
         <div className="dropdown-menu" id="add-budget-menu" role="menu">
           <div className="dropdown-content">
-            <Link to="/budgets/" className="has-text-danger dropdown-item">
+            <Link
+              to={`/budgets/${budgetId}/cost`}
+              className="has-text-danger dropdown-item"
+            >
               Expense
             </Link>
-            <Link to="/budgets/" className="has-text-success dropdown-item">
+            <Link
+              to={`/budgets/${budgetId}/saving`}
+              className="has-text-success dropdown-item"
+            >
               Savings
             </Link>
           </div>

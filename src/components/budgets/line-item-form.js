@@ -17,7 +17,6 @@ const LineItemForm = ({
 }) => {
   const [budgetYears, setBudgetYears] = useState([]);
   const [daysInMonth, setDaysInMonth] = useState([]);
-  const budgetTypes = ["Expense", "Saving"];
   const [selectedDate, setSelectedDate] = useState({
     month: lineItem.month,
     day: lineItem.day,
@@ -119,24 +118,12 @@ const LineItemForm = ({
       <div className="field level">
         <div className="field-body">
           <SelectInput
-            name="type"
-            label="Budget Type"
-            value={lineItem.type || ""}
-            defaultOption="Select Budget Type"
-            options={budgetTypes.map(type => ({
-              value: type,
-              text: type
-            }))}
-            onChange={onChange}
-            error={errors.budgetType}
-          />
-          <SelectInput
             name="categoryId"
             label="Expense Category"
             value={lineItem.categoryId || ""}
             defaultOption="Select Category"
             options={categories.map(cat => ({
-              value: cat._id,
+              value: cat.name,
               text: cat.name
             }))}
             onChange={onChange}

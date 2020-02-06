@@ -115,7 +115,7 @@ const newLineItem = {
   month: new Date().getMonth() + 1,
   day: new Date().getDate(),
   year: new Date().getFullYear(),
-  categoryId: null,
+  categoryName: "",
   savingsAccountId: null,
   description: ""
 };

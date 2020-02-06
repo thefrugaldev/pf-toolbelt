@@ -16,7 +16,7 @@ const ManageLineItemPage = ({
   loadCategories,
   ...props
 }) => {
-  const [lineItem, setLineItem] = useState({ ...props.budget });
+  const [lineItem, setLineItem] = useState({ ...props.lineItem });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
@@ -84,7 +84,7 @@ const ManageLineItemPage = ({
 };
 
 ManageLineItemPage.propTypes = {
-  budget: PropTypes.object.isRequired,
+  lineItem: PropTypes.object.isRequired,
   budgets: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,

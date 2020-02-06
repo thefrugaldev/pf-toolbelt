@@ -77,6 +77,8 @@ const BudgetsPage = ({
             onDeleteClick={handleDeleteBudgetAsync}
             lineItems={monthlyBudget.lineItems}
           />
+
+          <BudgetsPageFooter budgetId={monthlyBudget._id} />
         </>
       ) : (
         <NoBudgetNotification
@@ -85,7 +87,6 @@ const BudgetsPage = ({
           categories={categories}
         />
       )}
-      {/* <BudgetsPageFooter /> */}
     </>
   );
 };

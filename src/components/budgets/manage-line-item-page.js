@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
-import { loadBudgets, saveBudget } from "../../redux/actions/budget-actions";
+import { loadBudgets } from "../../redux/actions/budget-actions";
 import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import LineItemForm from "./line-item-form";
-import { newBudget } from "../../../tools/mock-budgets";
+import { newLineItem } from "../../../tools/mock-budgets";
 import Spinner from "../common/spinner";
 
 const ManageLineItemPage = ({
@@ -15,8 +14,6 @@ const ManageLineItemPage = ({
   categories,
   loadBudgets,
   loadCategories,
-  saveBudget,
-  history,
   ...props
 }) => {
   const [lineItem, setLineItem] = useState({ ...props.budget });
@@ -60,16 +57,16 @@ const ManageLineItemPage = ({
   const handleSave = event => {
     event.preventDefault();
     if (!formIsValid()) return;
-    setSaving(true);
-    saveBudget(lineItem)
-      .then(() => {
-        toast.success("Budget Saved.");
-        history.push("/budgets");
-      })
-      .catch(error => {
-        setSaving(false);
-        setErrors({ onSave: error.message });
-      });
+    // setSaving(true);
+    // saveBudget(lineItem)
+    //   .then(() => {
+    //     toast.success("Budget Saved.");
+    //     history.push("/budgets");
+    //   })
+    //   .catch(error => {
+    //     setSaving(false);
+    //     setErrors({ onSave: error.message });
+    //   });
   };
 
   return budgets.length === 0 ? (
@@ -91,9 +88,7 @@ ManageLineItemPage.propTypes = {
   budgets: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
   loadBudgets: PropTypes.func.isRequired,
-  loadCategories: PropTypes.func.isRequired,
-  saveBudget: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  loadCategories: PropTypes.func.isRequired
 };
 
 export function getLineItemById(lineItems, id) {
@@ -103,7 +98,7 @@ export function getLineItemById(lineItems, id) {
 const mapStateToProps = ({ budgets, categories }, ownProps) => {
   const id = ownProps.match.params.id;
   const lineItem =
-    id && budgets.length > 0 ? getLineItemById(budgets, id) : newBudget;
+    id && budgets.length > 0 ? getLineItemById(budgets, id) : newLineItem;
 
   return {
     lineItem,
@@ -113,7 +108,6 @@ const mapStateToProps = ({ budgets, categories }, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  saveBudget,
   loadBudgets,
   loadCategories
 };

@@ -108,7 +108,7 @@ const categories = [
   }
 ];
 
-const newBudget = {
+const newLineItem = {
   _id: null,
   title: "",
   amount: "",
@@ -122,7 +122,7 @@ const newBudget = {
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
-  newBudget,
+  newLineItem,
   budgets,
   categories
 };

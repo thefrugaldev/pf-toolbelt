@@ -11,14 +11,6 @@ export function getBudgets(filters) {
 }
 
 export function saveBudget(budget) {
-  if (!budget.month || !budget.day || !budget.year) {
-    const currentDate = new Date();
-
-    budget.day = currentDate.getDate();
-    budget.month = currentDate.getMonth() + 1; // Get month is zero-based
-    budget.year = currentDate.getFullYear();
-  }
-
   return fetch(baseUrl + (budget._id || ""), {
     method: budget._id ? "PUT" : "POST",
     headers: { "content-type": "application/json" },

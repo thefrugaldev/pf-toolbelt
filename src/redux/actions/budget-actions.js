@@ -34,8 +34,6 @@ export function loadBudgets(filters) {
 }
 
 export function saveBudget(budget) {
-  // could use state directly from redux thunk's second param
-  // ex: return (dispatch, getState) => {
   return function(dispatch) {
     dispatch(beginApiCall());
     return budgetApi

@@ -70,9 +70,7 @@ const ManageLineItemPage = ({
     //   });
   };
 
-  return lineItems.length === 0 ? (
-    <Spinner />
-  ) : (
+  return (
     <LineItemForm
       lineItem={lineItem}
       errors={errors}

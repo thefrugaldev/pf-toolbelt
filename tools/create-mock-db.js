@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 const fs = require("fs");
 const path = require("path");
-const mockBudgets = require("./mock-budgets");
+const mockLineItems = require("./mock-budget");
 
-const { budgets, categories } = mockBudgets;
+const { budgets, categories } = mockLineItems;
 const data = JSON.stringify({ budgets, categories });
 const filepath = path.join(__dirname, "db.json");
 

@@ -50,12 +50,12 @@ const LineItemForm = ({
       <div className="field level">
         <div className="field-body">
           <SelectInput
-            name="categoryName"
+            name="categoryId"
             label="Expense Category"
-            value={lineItem.categoryName || ""}
+            value={lineItem.categoryId || ""}
             defaultOption="Select Category"
             options={categories.map(cat => ({
-              value: cat.name,
+              value: cat._id,
               text: cat.name
             }))}
             onChange={onChange}

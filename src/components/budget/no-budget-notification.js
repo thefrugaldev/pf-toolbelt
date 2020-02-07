@@ -3,15 +3,16 @@ import PropTypes from "prop-types";
 // Redux
 import { connect } from "react-redux";
 import { saveLineItem } from "../../redux/actions/line-item-actions";
+import { Link } from "react-router-dom";
 
-const NoBudgetNotification = ({ month, year, categories, saveBudget }) => {
+const NoBudgetNotification = ({ month, year, categories, saveLineItem }) => {
   useEffect(() => {}, []);
 
-  const createBudget = () => {
-    categories.length
-      ? saveBudget({ categories })
-      : console.log("No categories :(");
-  };
+  // const createBudget = () => {
+  //   categories.length
+  //     ? console.log()
+  //     : console.log("No categories :(");
+  // };
 
   return (
     <div className="columns is-centered">
@@ -19,9 +20,15 @@ const NoBudgetNotification = ({ month, year, categories, saveBudget }) => {
         <h2 className="title">
           No Budgets for {month} {year}!
         </h2>
-        <button onClick={createBudget} className="button is-primary">
-          Create a New Budget
-        </button>
+        {categories.length ? (
+          <Link to="/budget/cost/" className="button is-primary">
+            Create an Entry
+          </Link>
+        ) : (
+          <Link to="/categories" className="button is-primary">
+            Manage Categories
+          </Link>
+        )}
         {/* <p>
           <img
             src="./src/assets/images/no-content.svg"
@@ -37,9 +44,7 @@ NoBudgetNotification.propTypes = {
   month: PropTypes.number.isRequired,
   year: PropTypes.number.isRequired,
   categories: PropTypes.array.isRequired,
-  saveBudget: PropTypes.func.isRequired
+  saveLineItem: PropTypes.func.isRequired
 };
 
-export default connect(null, { saveBudget: saveLineItem })(
-  NoBudgetNotification
-);
+export default connect(null, { saveLineItem })(NoBudgetNotification);

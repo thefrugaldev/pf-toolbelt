@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 //Redux
 import { connect } from "react-redux";
-import { loadBudgets } from "../../redux/actions/budget-actions";
+import { loadLineItems } from "../../redux/actions/line-item-actions";
 import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import LineItemForm from "./line-item-form";
-import { newLineItem } from "../../../tools/mock-budgets";
+import { newLineItem } from "../../../tools/mock-budget";
 import Spinner from "../common/spinner";
 
 const ManageLineItemPage = ({
-  budgets,
+  lineItems,
   categories,
-  loadBudgets,
+  loadLineItems,
   loadCategories,
   ...props
 }) => {
@@ -21,17 +21,17 @@ const ManageLineItemPage = ({
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (budgets.length === 0) {
-      loadBudgets().catch(error => {
-        alert(`Loading budgets failed ${error}`);
+    if (lineItems.length === 0) {
+      loadLineItems().catch(error => {
+        alert(`Loading line items failed ${error}`);
       });
     } else {
-      setLineItem({ ...props.budget });
+      setLineItem({ ...props.lineItem });
     }
     loadCategories().catch(error => {
       alert(`Loading categories failed ${error}`);
     });
-  }, [props.budget]);
+  }, [props.lineItem]);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -39,15 +39,16 @@ const ManageLineItemPage = ({
       ...prevLineItem,
       [name]: value
     }));
+    console.log(lineItem);
   };
 
   const formIsValid = () => {
-    const { title, amount } = lineItem;
+    const { title, amount, date } = lineItem;
     const errors = {};
 
     if (!title) errors.title = "Title is required";
     if (!amount) errors.amount = "Amount is required";
-    // if (!categoryId) errors.category = "Category is required";
+    if (!date) errors.date = "Please select a date";
 
     setErrors(errors);
     // Form is valid if the errors object still has no properties
@@ -57,11 +58,11 @@ const ManageLineItemPage = ({
   const handleSave = event => {
     event.preventDefault();
     if (!formIsValid()) return;
-    // setSaving(true);
-    // saveBudget(lineItem)
+    setSaving(true);
+    // saveLineItem(lineItem)
     //   .then(() => {
     //     toast.success("Budget Saved.");
-    //     history.push("/budgets");
+    //     history.push("/budget");
     //   })
     //   .catch(error => {
     //     setSaving(false);
@@ -69,7 +70,7 @@ const ManageLineItemPage = ({
     //   });
   };
 
-  return budgets.length === 0 ? (
+  return lineItems.length === 0 ? (
     <Spinner />
   ) : (
     <LineItemForm
@@ -85,9 +86,9 @@ const ManageLineItemPage = ({
 
 ManageLineItemPage.propTypes = {
   lineItem: PropTypes.object.isRequired,
-  budgets: PropTypes.array.isRequired,
+  lineItems: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
-  loadBudgets: PropTypes.func.isRequired,
+  loadLineItems: PropTypes.func.isRequired,
   loadCategories: PropTypes.func.isRequired
 };
 
@@ -95,20 +96,20 @@ export function getLineItemById(lineItems, id) {
   return lineItems.find(lineItem => lineItem._id === id) || null;
 }
 
-const mapStateToProps = ({ budgets, categories }, ownProps) => {
+const mapStateToProps = ({ lineItems, categories }, ownProps) => {
   const id = ownProps.match.params.id;
   const lineItem =
-    id && budgets.length > 0 ? getLineItemById(budgets, id) : newLineItem;
+    id && lineItems.length > 0 ? getLineItemById(lineItems, id) : newLineItem;
 
   return {
     lineItem,
-    budgets,
+    lineItems,
     categories
   };
 };
 
 const mapDispatchToProps = {
-  loadBudgets,
+  loadLineItems,
   loadCategories
 };
 

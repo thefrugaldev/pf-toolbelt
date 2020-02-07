@@ -1,8 +1,8 @@
 import { handleResponse, handleError, buildQueryString } from "./api-utils";
 
-const baseUrl = process.env.API_URL + "/budgets/";
+const baseUrl = process.env.API_URL + "/line-items/";
 
-export function getBudgets(filters) {
+export function getLineItems(filters) {
   const requestUrl = baseUrl.concat(buildQueryString(filters));
 
   return fetch(requestUrl)
@@ -10,18 +10,18 @@ export function getBudgets(filters) {
     .catch(handleError);
 }
 
-export function saveBudget(budget) {
-  return fetch(baseUrl + (budget._id || ""), {
-    method: budget._id ? "PUT" : "POST",
+export function saveLineItem(lineItem) {
+  return fetch(baseUrl + (lineItem._id || ""), {
+    method: lineItem._id ? "PUT" : "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify(budget)
+    body: JSON.stringify(lineItem)
   })
     .then(handleResponse)
     .catch(handleError);
 }
 
-export function deleteBudget(budgetId) {
-  return fetch(baseUrl + budgetId, {
+export function deleteLineItem(lineItemId) {
+  return fetch(baseUrl + lineItemId, {
     method: "DELETE",
     headers: { "content-type": "application/json" }
   })

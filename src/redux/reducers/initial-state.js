@@ -1,5 +1,5 @@
 export default {
-  budgets: [],
+  lineItems: [],
   categories: [],
   apiCallsInProgress: 0,
   currentUser: null

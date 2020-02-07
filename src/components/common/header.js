@@ -34,12 +34,12 @@ const Header = ({ logout }) => {
         </NavLink>
         {isAuthenticated && (
           <NavLink
-            to="/budgets"
+            to="/budget"
             activeStyle={activeStyle}
             exact
             className="link is-info"
           >
-            Budgets
+            Budget
           </NavLink>
         )}
         <NavLink to="/about" activeStyle={activeStyle} className="link is-info">

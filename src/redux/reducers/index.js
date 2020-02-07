@@ -1,11 +1,11 @@
 import { combineReducers } from "redux";
-import budgets from "./budget-reducer";
+import lineItems from "./line-item-reducer";
 import categories from "./category-reducer";
 import apiCallsInProgress from "./api-status-reducer";
 import currentUser from "./firebase-reducer";
 
 const rootReducer = combineReducers({
-  budgets,
+  lineItems,
   categories,
   apiCallsInProgress,
   currentUser

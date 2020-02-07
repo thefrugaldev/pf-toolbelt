@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 // Redux
-import { loadBudgets } from "../../redux/actions/budget-actions";
+import { loadLineItems } from "../../redux/actions/line-item-actions";
 import { loadCategories } from "../../redux/actions/category-actions";
 
 const ReportsPage = ({ budgetsByYear, loadBudgets, loadCategories }) => {
@@ -42,7 +42,7 @@ const mapStateToProps = ({ budgets, categories }) => {
 };
 
 const mapDispatchToProps = {
-  loadBudgets,
+  loadBudgets: loadLineItems,
   loadCategories
 };
 

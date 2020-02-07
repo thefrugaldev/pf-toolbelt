@@ -4,28 +4,30 @@ import { toast } from "react-toastify";
 //Redux
 import { connect } from "react-redux";
 import { loadCategories } from "../../redux/actions/category-actions";
-import { loadBudgets, deleteBudget } from "../../redux/actions/budget-actions";
+import {
+  loadLineItems,
+  deleteLineItem
+} from "../../redux/actions/line-item-actions";
 //Components
 import LineItemsList from "./line-item-list";
 import Spinner from "../common/spinner";
-import BudgetsPageFooter from "./budgets-page-footer";
+import BudgetsPageFooter from "./budget-page-footer";
 // Utils
 import { monthNames } from "../../utils/datetime-helpers";
 import NoBudgetNotification from "./no-budget-notification";
 
-const BudgetsPage = ({
-  budgets,
+const BudgetPage = ({
+  lineItems,
   categories,
-  loadBudgets,
+  loadLineItems,
   loadCategories,
   loading
 }) => {
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [monthlyBudget, setMonthlyBudget] = useState();
 
   useEffect(() => {
-    loadBudgets().catch(error => {
+    loadLineItems().catch(error => {
       console.log(`Loading budgets failed ${error}`);
     });
     loadCategories().catch(error => {
@@ -33,20 +35,20 @@ const BudgetsPage = ({
     });
   }, [selectedMonth]);
 
-  useEffect(() => {
-    getBudgetByMonthAndYear(selectedMonth, selectedYear);
-  }, [budgets]);
+  // useEffect(() => {
+  //   getBudgetByMonthAndYear(selectedMonth, selectedYear);
+  // }, [lineItems]);
 
-  const getBudgetByMonthAndYear = (month, year) => {
-    setSelectedMonth(month);
-    setMonthlyBudget(
-      budgets.find(budget => budget.month === month && budget.year === year)
-    );
-  };
+  // const getBudgetByMonthAndYear = (month, year) => {
+  //   setSelectedMonth(month);
+  //   setMonthlyBudget(
+  //     lineItems.find(budget => budget.month === month && budget.year === year)
+  //   );
+  // };
 
   const handleDeleteBudgetAsync = async budget => {
     try {
-      await deleteBudget(budget);
+      await deleteLineItem(budget);
       toast.success("Budget Deleted");
     } catch (error) {
       toast.error(`Delete Failed. ${error}`, { autoClose: false });
@@ -61,7 +63,7 @@ const BudgetsPage = ({
           {monthNames.map((month, index) => (
             <li
               key={month}
-              onClick={() => getBudgetByMonthAndYear(index + 1, selectedYear)}
+              onClick={() => setSelectedMonth(index + 1)}
               className={selectedMonth == index + 1 ? "is-active" : ""}
             >
               <a>{month}</a>
@@ -71,14 +73,14 @@ const BudgetsPage = ({
       </div>
       {loading ? (
         <Spinner />
-      ) : monthlyBudget ? (
+      ) : lineItems.length ? (
         <>
           <LineItemsList
             onDeleteClick={handleDeleteBudgetAsync}
-            lineItems={monthlyBudget.lineItems}
+            lineItems={lineItems}
           />
 
-          <BudgetsPageFooter budgetId={monthlyBudget._id} />
+          <BudgetsPageFooter />
         </>
       ) : (
         <NoBudgetNotification
@@ -91,27 +93,27 @@ const BudgetsPage = ({
   );
 };
 
-BudgetsPage.propTypes = {
-  budgets: PropTypes.array.isRequired,
+BudgetPage.propTypes = {
+  lineItems: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
-  loadBudgets: PropTypes.func.isRequired,
+  loadLineItems: PropTypes.func.isRequired,
   loadCategories: PropTypes.func.isRequired,
-  deleteBudget: PropTypes.func.isRequired,
+  deleteLineItem: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ budgets, categories, apiCallsInProgress }) => {
+const mapStateToProps = ({ lineItems, categories, apiCallsInProgress }) => {
   return {
-    budgets,
+    lineItems,
     categories,
     loading: apiCallsInProgress > 0
   };
 };
 
 const mapDispatchToProps = {
-  loadBudgets,
+  loadLineItems,
   loadCategories,
-  deleteBudget
+  deleteLineItem
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BudgetsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(BudgetPage);

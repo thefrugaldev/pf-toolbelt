@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 // Redux
 import { connect } from "react-redux";
-import { saveBudget } from "../../redux/actions/budget-actions";
+import { saveLineItem } from "../../redux/actions/line-item-actions";
 
 const NoBudgetNotification = ({ month, year, categories, saveBudget }) => {
   useEffect(() => {}, []);
@@ -40,4 +40,6 @@ NoBudgetNotification.propTypes = {
   saveBudget: PropTypes.func.isRequired
 };
 
-export default connect(null, { saveBudget })(NoBudgetNotification);
+export default connect(null, { saveBudget: saveLineItem })(
+  NoBudgetNotification
+);

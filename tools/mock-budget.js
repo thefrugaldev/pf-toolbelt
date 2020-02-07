@@ -1,83 +1,53 @@
-const budgets = [
+const lineItems = [
   {
     _id: 1,
     title: "LGE",
-    categoryId: 1,
-    month: 1,
-    day: 20,
-    year: 2019
+    categoryId: 1
   },
   {
     _id: 2,
     title: "Louisville Water",
-    categoryId: 2,
-    month: 1,
-    day: 1,
-    year: 2019
+    categoryId: 2
   },
   {
     _id: 3,
     title: "Target",
-    categoryId: 5,
-    month: 1,
-    day: 15,
-    year: 2019
+    categoryId: 5
   },
   {
     _id: 4,
     title: "LGE",
-    categoryId: 1,
-    month: 2,
-    day: 20,
-    year: 2019
+    categoryId: 1
   },
   {
     _id: 5,
     title: "Movie Theatre",
-    categoryId: 6,
-    month: 2,
-    day: 12,
-    year: 2019
+    categoryId: 6
   },
   {
     _id: 6,
     title: "Red Lobster",
-    categoryId: 6,
-    month: 2,
-    day: 17,
-    year: 2019
+    categoryId: 6
   },
   {
     _id: 7,
     title: "LGE",
-    categoryId: 1,
-    month: 3,
-    day: 20,
-    year: 2019
+    categoryId: 1
   },
   {
     _id: 8,
     title: "Kroger",
-    categoryId: 4,
-    month: 3,
-    day: 10,
-    year: 2019
+    categoryId: 4
   },
   {
     _id: 9,
     title: "Louisville Water",
-    categoryId: 2,
-    month: 3,
-    day: 20,
-    year: 2019
+    categoryId: 2
   },
   {
     _id: 10,
     title: "LGE",
-    categoryId: 1,
-    month: 4,
-    day: 20,
-    year: 2019
+    categoryId: 1
   }
 ];
 
@@ -115,14 +85,13 @@ const newLineItem = {
   month: new Date().getMonth() + 1,
   day: new Date().getDate(),
   year: new Date().getFullYear(),
-  categoryName: "",
-  savingsAccountId: null,
+  categoryId: null,
   description: ""
 };
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
   newLineItem,
-  budgets,
+  lineItems,
   categories
 };

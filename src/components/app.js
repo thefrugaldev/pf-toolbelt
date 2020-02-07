@@ -11,13 +11,13 @@ import HomePage from "./home/home-page";
 import AboutPage from "./about/about-page";
 import Header from "./common/header";
 import PageNotFound from "./page-not-found";
-import BudgetsPage from "./budgets/budgets-page";
-import ManageLineItemPage from "./budgets/manage-line-item-page";
-import ManageCategoriesPage from "./budgets/manage-categories-page";
+import BudgetPage from "./budget/budget-page";
+import ManageLineItemPage from "./budget/manage-line-item-page";
+import ManageCategoriesPage from "./budget/manage-categories-page";
 import Login from "./common/login";
 import Register from "./common/register";
 import PrivateRoute from "./common/private-route";
-import ReportsPage from "./budgets/reports-page";
+import ReportsPage from "./budget/reports-page";
 
 function App({ fetchUser }) {
   useLayoutEffect(() => {
@@ -32,14 +32,14 @@ function App({ fetchUser }) {
           <Route exact path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/login" component={Login} />
-          <PrivateRoute exact path="/budgets" component={BudgetsPage} />
-          <PrivateRoute exact path="/budgets/reports" component={ReportsPage} />
+          <PrivateRoute exact path="/budget" component={BudgetPage} />
+          <PrivateRoute exact path="/budget/reports" component={ReportsPage} />
           <PrivateRoute
-            path="/budgets/:id/(cost|saving)/:id"
+            path="/budget/(cost|saving)/:id"
             component={ManageLineItemPage}
           />
           <PrivateRoute
-            path="/budgets/:id/(cost|saving)"
+            path="/budget/(cost|saving)"
             component={ManageLineItemPage}
           />
           <PrivateRoute path="/categories" component={ManageCategoriesPage} />

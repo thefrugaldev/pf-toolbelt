@@ -34,13 +34,13 @@ const BudgetsPageFooter = ({ budgetId }) => {
         <div className="dropdown-menu" id="add-budget-menu" role="menu">
           <div className="dropdown-content">
             <Link
-              to={`/budgets/${budgetId}/cost`}
+              to={`/budget/line-item`}
               className="has-text-danger dropdown-item"
             >
               Expense
             </Link>
             <Link
-              to={`/budgets/${budgetId}/saving`}
+              to={`/budget/line-item`}
               className="has-text-success dropdown-item"
             >
               Savings

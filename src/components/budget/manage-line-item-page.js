@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 //Redux
 import { connect } from "react-redux";
-import { loadLineItems } from "../../redux/actions/line-item-actions";
+import {
+  saveLineItem,
+  loadLineItems
+} from "../../redux/actions/line-item-actions";
 import { loadCategories } from "../../redux/actions/category-actions";
 //Components
 import LineItemForm from "./line-item-form";
 import { newLineItem } from "../../../tools/mock-budget";
-import Spinner from "../common/spinner";
+import { toast } from "react-toastify";
 
 const ManageLineItemPage = ({
   lineItems,
   categories,
+  saveLineItem,
   loadLineItems,
   loadCategories,
   ...props
@@ -59,15 +63,15 @@ const ManageLineItemPage = ({
     event.preventDefault();
     if (!formIsValid()) return;
     setSaving(true);
-    // saveLineItem(lineItem)
-    //   .then(() => {
-    //     toast.success("Budget Saved.");
-    //     history.push("/budget");
-    //   })
-    //   .catch(error => {
-    //     setSaving(false);
-    //     setErrors({ onSave: error.message });
-    //   });
+    saveLineItem(lineItem)
+      .then(() => {
+        toast.success("Budget Saved.");
+        history.push("/budget");
+      })
+      .catch(error => {
+        setSaving(false);
+        setErrors({ onSave: error.message });
+      });
   };
 
   return (
@@ -86,6 +90,7 @@ ManageLineItemPage.propTypes = {
   lineItem: PropTypes.object.isRequired,
   lineItems: PropTypes.array.isRequired,
   categories: PropTypes.array.isRequired,
+  saveLineItem: PropTypes.func.isRequired,
   loadLineItems: PropTypes.func.isRequired,
   loadCategories: PropTypes.func.isRequired
 };
@@ -107,6 +112,7 @@ const mapStateToProps = ({ lineItems, categories }, ownProps) => {
 };
 
 const mapDispatchToProps = {
+  saveLineItem,
   loadLineItems,
   loadCategories
 };

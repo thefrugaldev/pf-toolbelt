@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 // Components
 import TextInput from "../common/text-input";
 import SelectInput from "../common/select-input";
-// Utils
 import TextArea from "../common/text-area";
+// Utils
+import { getInputFormattedDate } from "../../utils/datetime-helpers";
 
 const LineItemForm = ({
   lineItem,
@@ -44,6 +45,7 @@ const LineItemForm = ({
             name="date"
             onChange={onChange}
             type="date"
+            value={getInputFormattedDate(lineItem.date)}
           />
         </div>
       </div>

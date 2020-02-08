@@ -35,11 +35,11 @@ function App({ fetchUser }) {
           <PrivateRoute exact path="/budget" component={BudgetPage} />
           <PrivateRoute exact path="/budget/reports" component={ReportsPage} />
           <PrivateRoute
-            path="/budget/(cost|saving)/:id"
+            path="/budget/line-item/:id"
             component={ManageLineItemPage}
           />
           <PrivateRoute
-            path="/budget/(cost|saving)"
+            path="/budget/line-item"
             component={ManageLineItemPage}
           />
           <PrivateRoute path="/categories" component={ManageCategoriesPage} />

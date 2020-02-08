@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+// Utils
+import { getDisplayFormattedDate } from "../../utils/datetime-helpers";
 
 const LineItemList = ({ lineItems, onDeleteClick }) => {
   const [activeModal, setActiveModal] = useState(false);
@@ -47,11 +49,13 @@ const LineItemList = ({ lineItems, onDeleteClick }) => {
             return (
               <tr key={lineItem._id}>
                 <td>
-                  <Link to={`/budget/${lineItem._id}`}>{lineItem.title}</Link>
+                  <Link to={`/budget/line-item/${lineItem._id}`}>
+                    {lineItem.title}
+                  </Link>
                 </td>
                 <td>{lineItem.categoryName}</td>
                 <td>{lineItem.amount && `$${lineItem.amount}`}</td>
-                <td>{`${lineItem.month}-${lineItem.day}-${lineItem.year}`}</td>
+                <td>{getDisplayFormattedDate(lineItem.date)}</td>
                 <td>
                   {lineItem.description && (
                     <span className="icon has-text-info">

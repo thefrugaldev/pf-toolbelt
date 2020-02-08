@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 // Components
-import TextInput from "../common/text-input";
-import SelectInput from "../common/select-input";
-import TextArea from "../common/text-area";
+import TextInput from "../common/forms/text-input";
+import SelectInput from "../common/forms/select-input";
+import TextArea from "../common/forms/text-area";
+import DateInput from "../common/forms/date-input";
 // Utils
-import { getInputFormattedDate } from "../../utils/datetime-helpers";
 
 const LineItemForm = ({
   lineItem,
@@ -37,18 +37,13 @@ const LineItemForm = ({
         onChange={onChange}
         error={errors.amount}
       />
-      <div className="field">
-        <label className="label">Date</label>
-        <div className="control">
-          <input
-            className="input"
-            name="date"
-            onChange={onChange}
-            type="date"
-            value={getInputFormattedDate(lineItem.date)}
-          />
-        </div>
-      </div>
+      <DateInput
+        name="date"
+        label="Date"
+        value={lineItem.date}
+        onChange={onChange}
+        error={errors.date}
+      />
       <div className="field level">
         <div className="field-body">
           <SelectInput

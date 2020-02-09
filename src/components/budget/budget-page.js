@@ -35,17 +35,6 @@ const BudgetPage = ({
     });
   }, [selectedMonth]);
 
-  // useEffect(() => {
-  //   getBudgetByMonthAndYear(selectedMonth, selectedYear);
-  // }, [lineItems]);
-
-  // const getBudgetByMonthAndYear = (month, year) => {
-  //   setSelectedMonth(month);
-  //   setMonthlyBudget(
-  //     lineItems.find(budget => budget.month === month && budget.year === year)
-  //   );
-  // };
-
   const handleDeleteBudgetAsync = async budget => {
     try {
       await deleteLineItem(budget);

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// Styles
+import "./icon-picker.scss";
 
 const IconPicker = ({ onChange }) => {
   const [iconNames, setIconNames] = useState([]);
   const [activeModal, setActiveModal] = useState(false);
 
   useEffect(() => {
-    library.add(fas);
     let icons = library.definitions.fas;
     for (const icon in icons) {
       setIconNames(prevNames => [...prevNames, icon]);
@@ -24,7 +24,7 @@ const IconPicker = ({ onChange }) => {
         aria-haspopup="true"
         onClick={() => setActiveModal(true)}
       >
-        Select an Icon
+        Icon
       </button>
       <div
         className={`modal ${activeModal ? "is-active" : ""}`}

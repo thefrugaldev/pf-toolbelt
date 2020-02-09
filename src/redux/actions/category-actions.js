@@ -30,6 +30,8 @@ export const loadCategories = () => async dispatch => {
 };
 
 export const saveCategory = category => dispatch => {
+  console.log(category);
+
   dispatch(beginApiCall());
   return categoryApi
     .saveCategory(category)

@@ -11,6 +11,7 @@ import {
 import Spinner from "../common/spinner";
 import TextInput from "../common/forms/text-input";
 import IconPicker from "../common/icon-picker";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ManageCategoriesPage = ({
   categories,
@@ -32,7 +33,7 @@ const ManageCategoriesPage = ({
   };
 
   const handleSave = () => {
-    saveCategory({ name: newCategory }).catch(error =>
+    saveCategory({ name: newCategory, icon: selectedIcon }).catch(error =>
       console.error(`Failed to save category: `, error)
     );
   };
@@ -43,47 +44,72 @@ const ManageCategoriesPage = ({
     );
   };
 
-  return categories.length === 0 ? (
-    <Spinner />
-  ) : (
+  return (
     <>
-      <h2 className="is-2">Your Current Categories</h2>
-      <table className="table">
-        <tbody>
-          {categories.map(category => {
-            return (
-              <tr key={category._id}>
-                <th>{category._id}</th>
-                <td>{category.name}</td>
-                <td>
-                  <button
-                    onClick={() => handleDelete(category)}
-                    className="button is-danger"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-          <tr>
-            <th></th>
-            <td>
-              <IconPicker onChange={handleChange} />
-              <TextInput
-                name="category"
-                placeholder={"Create new category"}
-                onChange={handleChange}
-              />
-            </td>
-            <td>
-              <button onClick={handleSave} className="button is-success">
-                Save
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      {categories.length === 0 ? (
+        <h2 className="title">No Categories. Create One Below</h2>
+      ) : (
+        <>
+          <h2 className="title has-text-centered">Your Current Categories</h2>
+          <div className="columns is-centered">
+            <div className="column is-narrow">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Icon</th>
+                    <th>Category Name</th>
+                    <th />
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {categories.map(category => {
+                    return (
+                      <tr key={category._id}>
+                        <td>
+                          {category.icon ? (
+                            <span className="icon has-text-info is-large">
+                              <FontAwesomeIcon icon={category.icon} />
+                            </span>
+                          ) : (
+                            ""
+                          )}
+                        </td>
+                        <td>{category.name}</td>
+                        <td>
+                          <button
+                            onClick={() => handleDelete(category)}
+                            className="button is-danger"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
+      )}
+      <div className="field is-grouped">
+        <div className="control">
+          <IconPicker onChange={handleChange} />
+        </div>
+        <div className="control">
+          <TextInput
+            name="category"
+            placeholder={"Category Name"}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="control">
+          <button onClick={handleSave} className="button is-success">
+            Save
+          </button>
+        </div>
+      </div>
     </>
   );
 };

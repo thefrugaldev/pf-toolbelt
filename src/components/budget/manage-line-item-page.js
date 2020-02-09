@@ -43,8 +43,6 @@ const ManageLineItemPage = ({
       ...prevLineItem,
       [name]: value
     }));
-
-    console.log(lineItem);
   };
 
   const formIsValid = () => {

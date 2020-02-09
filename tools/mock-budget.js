@@ -83,7 +83,7 @@ const newLineItem = {
   title: "",
   amount: "",
   date: new Date().toDateString(),
-  categoryId: null,
+  category: null,
   description: ""
 };
 

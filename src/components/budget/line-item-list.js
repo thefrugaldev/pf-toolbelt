@@ -53,7 +53,11 @@ const LineItemList = ({ lineItems, onDeleteClick }) => {
                     {lineItem.title}
                   </Link>
                 </td>
-                <td>{lineItem.categoryName}</td>
+                <td>
+                  {lineItem.category
+                    ? lineItem.category.name
+                    : "No Category Specified"}
+                </td>
                 <td>{lineItem.amount && `$${lineItem.amount}`}</td>
                 <td>{getDisplayFormattedDate(lineItem.date)}</td>
                 <td>

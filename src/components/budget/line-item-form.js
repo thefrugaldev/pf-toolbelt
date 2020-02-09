@@ -5,8 +5,6 @@ import TextInput from "../common/forms/text-input";
 import SelectInput from "../common/forms/select-input";
 import TextArea from "../common/forms/text-area";
 import DateInput from "../common/forms/date-input";
-// Utils
-import { getInputFormattedDate } from "../../utils/datetime-helpers";
 
 const LineItemForm = ({
   lineItem,
@@ -48,9 +46,9 @@ const LineItemForm = ({
       <div className="field level">
         <div className="field-body">
           <SelectInput
-            name="categoryId"
+            name="category"
             label="Expense Category"
-            value={lineItem.categoryId || ""}
+            value={lineItem.category ? lineItem.category._id : ""}
             defaultOption="Select Category"
             options={categories.map(cat => ({
               value: cat._id,

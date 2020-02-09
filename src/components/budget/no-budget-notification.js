@@ -21,7 +21,7 @@ const NoBudgetNotification = ({ month, year, categories, saveLineItem }) => {
           No Budgets for {month} {year}!
         </h2>
         {categories.length ? (
-          <Link to="/budget/cost/" className="button is-primary">
+          <Link to="/budget/line-item/" className="button is-primary">
             Create an Entry
           </Link>
         ) : (

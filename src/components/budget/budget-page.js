@@ -27,7 +27,7 @@ const BudgetPage = ({
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
-    loadLineItems().catch(error => {
+    loadLineItems({ month: selectedMonth, year: selectedYear }).catch(error => {
       console.log(`Loading budgets failed ${error}`);
     });
     loadCategories().catch(error => {

@@ -18,11 +18,6 @@ const getDisplayFormattedDate = dateAsString => {
   return `${date.month}/${date.day}/${date.year}`;
 };
 
-const getInputFormattedDate = dateAsString => {
-  const date = getDateProps(dateAsString);
-  return `${date.year}-${date.month}-${date.day}`;
-};
-
 const getDateProps = dateAsString => {
   const date = new Date(dateAsString);
   const year = date.getFullYear();
@@ -39,4 +34,4 @@ const getDateProps = dateAsString => {
   };
 };
 
-export { monthNames, getDisplayFormattedDate, getInputFormattedDate };
+export { monthNames, getDisplayFormattedDate };

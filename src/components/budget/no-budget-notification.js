@@ -1,24 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 // Redux
 import { connect } from "react-redux";
 import { saveLineItem } from "../../redux/actions/line-item-actions";
 import { Link } from "react-router-dom";
+// Utilities
+import { monthNames } from "../../utils/datetime-helpers";
 
-const NoBudgetNotification = ({ month, year, categories, saveLineItem }) => {
-  useEffect(() => {}, []);
-
-  // const createBudget = () => {
-  //   categories.length
-  //     ? console.log()
-  //     : console.log("No categories :(");
-  // };
-
+const NoBudgetNotification = ({ month, year, categories }) => {
   return (
     <div className="columns is-centered">
       <div className="column is-three-fifths has-text-centered">
         <h2 className="title">
-          No Budgets for {month} {year}!
+          No Budgets for {monthNames[month - 1]} {year}!
         </h2>
         {categories.length ? (
           <Link to="/budget/line-item/" className="button is-primary">

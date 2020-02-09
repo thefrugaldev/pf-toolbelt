@@ -5,6 +5,8 @@ import TextInput from "../common/forms/text-input";
 import SelectInput from "../common/forms/select-input";
 import TextArea from "../common/forms/text-area";
 import DateInput from "../common/forms/date-input";
+// Utils
+import { getInputFormattedDate } from "../../utils/datetime-helpers";
 
 const LineItemForm = ({
   lineItem,

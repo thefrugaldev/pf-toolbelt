@@ -92,9 +92,14 @@ const ManageCategoriesPage = ({
           </div>
         </>
       )}
-      <div className="field is-grouped">
+      <div className="field is-grouped columns is-centered m-t-lg">
         <div className="control">
           <IconPicker onChange={handleChange} />
+          {selectedIcon && (
+            <span className="icon has-text-info is-large">
+              <FontAwesomeIcon icon={selectedIcon} size="2x" />
+            </span>
+          )}
         </div>
         <div className="control">
           <TextInput

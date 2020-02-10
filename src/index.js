@@ -1,7 +1,10 @@
 import React from "react";
 import { render } from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import "./assets/styles/variables.scss";
 import "bulma/css/bulma.css";
+import "./assets/styles/helpers.scss";
+import "./assets/styles/global.scss";
 //Components
 import App from "./components/app";
 //Redux

@@ -1,0 +1,64 @@
+// @import "~bulma/sass/utilities/initial-variables";
+
+// // Typography
+// $font-heading: "Poppins", sans-serif;
+// $font-sans-serif: "Open Sans", sans-serif;
+// // Colors
+// $spacegrey: #464655;
+// $turquoise: #7a9e9f;
+// $cream: #fff8e8;
+// $offwhite: #eff1f3;
+// $maroon: #6f5060;
+// $light-yellow: #ffffa0;
+// $light-blue: #c4d7f2;
+
+// /********
+// *********
+// Bulma Overrides
+// *********
+// ********/
+
+// // Initial
+// $family-sans-serif: $font-sans-serif;
+// $fullhd-enabled: false;
+// // Derived
+// $primary: $spacegrey;
+// $secondary: $maroon;
+// $dark: $spacegrey;
+// $light: $cream;
+// $info: $light-blue;
+// $warning: $light-yellow;
+// $link: $maroon;
+// // Generic
+// $body-font-size: 1.125em;
+// $body-weight: 500;
+// $body-background-color: $offwhite;
+// // Navbar
+// $navbar-background-color: $offwhite;
+// $navbar-item-color: $secondary;
+// // Title
+// $title-family: $font-heading;
+// $title-color: $secondary;
+// // Content
+// $content-heading-color: $secondary;
+// $content-heading-weight: 500;
+// // Footer
+// $footer-background-color: $spacegrey;
+// $footer-color: $offwhite;
+
+// // Add Custom Colors
+// @import "~bulma/sass/utilities/functions";
+
+// $secondary-invert: findColorInvert($secondary);
+// $turquoise-invert: findColorInvert($turquoise);
+
+// $custom-colors: (
+//   "secondary": (
+//     $secondary,
+//     $secondary-invert
+//   ),
+//   "turquoise": (
+//     $turquoise,
+//     $turquoise-invert
+//   )
+// );

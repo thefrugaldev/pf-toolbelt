@@ -22,16 +22,6 @@ const DateInput = ({ name, label, onChange, placeholder, value, error }) => {
         });
       });
     });
-
-    // To access to bulmaCalendar instance of an element
-    // eslint-disable-next-line no-undef
-    // const element = document.querySelector("#datepicker");
-    // if (element) {
-    //   // bulmaCalendar instance is available as element.bulmaCalendar
-    //   element.bulmaCalendar.on("select", datepicker => {
-    //     console.log(datepicker.data.value());
-    //   });
-    // }
   }, []);
 
   let inputClass = "input";

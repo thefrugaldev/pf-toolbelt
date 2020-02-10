@@ -8,7 +8,6 @@ import {
   deleteCategory
 } from "../../redux/actions/category-actions";
 // Components
-import Spinner from "../common/spinner";
 import TextInput from "../common/forms/text-input";
 import IconPicker from "../common/icon-picker";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

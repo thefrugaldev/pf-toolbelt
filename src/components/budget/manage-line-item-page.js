@@ -39,6 +39,7 @@ const ManageLineItemPage = ({
 
   const handleChange = event => {
     const { name, value } = event.target;
+
     setLineItem(prevLineItem => ({
       ...prevLineItem,
       [name]: value

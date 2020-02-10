@@ -11,12 +11,17 @@ const DateInput = ({ name, label, onChange, placeholder, value, error }) => {
     });
 
     // Loop on each calendar initialized
-    // calendars.forEach(calendar => {
-    //   // Add listener to date:selected event
-    //   calendar.on("date:selected", date => {
-    //     console.log(date);
-    //   });
-    // });
+    calendars.forEach(calendar => {
+      // Add listener to date:selected event
+      calendar.on("select", date => {
+        onChange({
+          target: {
+            name,
+            value: date.data.value()
+          }
+        });
+      });
+    });
 
     // To access to bulmaCalendar instance of an element
     // eslint-disable-next-line no-undef

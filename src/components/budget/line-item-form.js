@@ -47,7 +47,7 @@ const LineItemForm = ({
         <div className="field-body">
           <SelectInput
             name="category"
-            label="Expense Category"
+            label="Category"
             value={lineItem.category ? lineItem.category._id : ""}
             defaultOption="Select Category"
             options={categories.map(cat => ({
@@ -56,6 +56,24 @@ const LineItemForm = ({
             }))}
             onChange={onChange}
             error={errors.category}
+          />
+          <SelectInput
+            name="isSavings"
+            label="Type"
+            value={lineItem.isSavings}
+            defaultOption="Select Entry Type"
+            options={[
+              {
+                value: false,
+                text: "Expense"
+              },
+              {
+                value: true,
+                text: `Savings`
+              }
+            ]}
+            onChange={onChange}
+            error={errors.type}
           />
         </div>
       </div>

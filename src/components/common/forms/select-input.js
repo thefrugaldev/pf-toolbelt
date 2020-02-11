@@ -51,7 +51,11 @@ SelectInput.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   defaultOption: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool
+  ]),
   error: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.object)
 };

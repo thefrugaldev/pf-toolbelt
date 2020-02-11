@@ -58,7 +58,13 @@ const LineItemList = ({ lineItems, onDeleteClick }) => {
                     ? lineItem.category.name
                     : "No Category Specified"}
                 </td>
-                <td>{lineItem.amount && `$${lineItem.amount}`}</td>
+                <td
+                  className={
+                    lineItem.isSavings ? `has-text-success` : `has-text-danger`
+                  }
+                >
+                  {lineItem.amount && `$${lineItem.amount}`}
+                </td>
                 <td>{getDisplayFormattedDate(lineItem.date)}</td>
                 <td>
                   {lineItem.description && (

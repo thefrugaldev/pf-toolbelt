@@ -19,7 +19,7 @@ const ManageCategoriesPage = ({
   deleteCategory
 }) => {
   const [newCategory, setNewCategory] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState();
+  const [selectedIcon, setSelectedIcon] = useState("");
 
   useEffect(() => {
     loadCategories().catch(error => {
@@ -35,6 +35,8 @@ const ManageCategoriesPage = ({
     saveCategory({ name: newCategory, icon: selectedIcon }).catch(error =>
       console.error(`Failed to save category: `, error)
     );
+    setSelectedIcon("");
+    setNewCategory("");
   };
 
   const handleDelete = category => {
@@ -106,6 +108,7 @@ const ManageCategoriesPage = ({
             name="category"
             placeholder={"Category Name"}
             onChange={handleChange}
+            value={newCategory}
           />
         </div>
         <div className="control">

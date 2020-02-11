@@ -47,7 +47,7 @@ const BudgetPage = ({
   return (
     <>
       <h2 className="title">{selectedYear} Budgets</h2>
-      <div className="tabs is-boxed">
+      <div className="tabs is-boxed is-centered">
         <ul>
           {monthNames.map((month, index) => (
             <li

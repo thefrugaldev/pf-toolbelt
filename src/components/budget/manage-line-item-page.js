@@ -18,6 +18,7 @@ const ManageLineItemPage = ({
   saveLineItem,
   loadLineItems,
   loadCategories,
+  history,
   ...props
 }) => {
   const [lineItem, setLineItem] = useState({ ...props.lineItem });
@@ -47,12 +48,14 @@ const ManageLineItemPage = ({
   };
 
   const formIsValid = () => {
-    const { title, amount, date } = lineItem;
+    const { title, amount, date, category, isSavings } = lineItem;
     const errors = {};
 
     if (!title) errors.title = "Title is required";
     if (!amount) errors.amount = "Amount is required";
     if (!date) errors.date = "Please select a date";
+    if (!category) errors.category = "Please select a category";
+    if (!isSavings) errors.type = "Please choose an entry type";
 
     setErrors(errors);
     // Form is valid if the errors object still has no properties
@@ -92,7 +95,8 @@ ManageLineItemPage.propTypes = {
   categories: PropTypes.array.isRequired,
   saveLineItem: PropTypes.func.isRequired,
   loadLineItems: PropTypes.func.isRequired,
-  loadCategories: PropTypes.func.isRequired
+  loadCategories: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export function getLineItemById(lineItems, id) {

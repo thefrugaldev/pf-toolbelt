@@ -8,11 +8,14 @@ module.exports = {
   mode: "development",
   target: "web",
   devtool: "cheap-module-source-map",
-  entry: "./src/index",
+  entry: "./src/index.jsx",
   output: {
     path: path.resolve(__dirname, "build"),
     publicPath: "/",
     filename: "bundle.js"
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx"]
   },
   devServer: {
     stats: "minimal",
@@ -35,9 +38,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(t|j)sx?$/,
         exclude: /node_modules/,
-        use: ["babel-loader", "eslint-loader"]
+        use: { loader: "ts-loader" }
+        // use: ["babel-loader", "eslint-loader"]
+        // TODO: remove .babelrc and all Babel dependencies from package.json if no longer needed
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "source-map-loader"
       },
       {
         // Apply rule for .sass, .scss or .css files

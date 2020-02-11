@@ -18,6 +18,10 @@ export function deleteLineItemOptimistic(lineItem) {
   return { type: actionTypes.DELETE_LINE_ITEM_OPTIMISTIC, lineItem };
 }
 
+export function sortLineItems(key) {
+  return { type: actionTypes.SORT_LINE_ITEMS, key };
+}
+
 export function loadLineItems(filters) {
   return function(dispatch) {
     dispatch(beginApiCall());

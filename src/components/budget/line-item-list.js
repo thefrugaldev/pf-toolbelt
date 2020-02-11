@@ -5,8 +5,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 // Utils
 import { getDisplayFormattedDate } from "../../utils/datetime-helpers";
+// Redux
+import { connect } from "react-redux";
+import { sortLineItems } from "../../redux/actions/line-item-actions";
 
-const LineItemList = ({ lineItems, onDeleteClick }) => {
+const LineItemList = ({ lineItems, onDeleteClick, dispatch }) => {
   const [activeModal, setActiveModal] = useState(false);
   const [modalTitle, setModalTitle] = useState();
   const [modalBody, setModalBody] = useState();
@@ -36,7 +39,7 @@ const LineItemList = ({ lineItems, onDeleteClick }) => {
       <table className="table is-fullwidth">
         <thead>
           <tr>
-            <th>Title</th>
+            <th onClick={() => dispatch(sortLineItems("title"))}>Title</th>
             <th>Category</th>
             <th>Amount</th>
             <th>Date</th>
@@ -95,7 +98,13 @@ const LineItemList = ({ lineItems, onDeleteClick }) => {
 
 LineItemList.propTypes = {
   lineItems: PropTypes.array.isRequired,
-  onDeleteClick: PropTypes.func.isRequired
+  onDeleteClick: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
-export default LineItemList;
+const mapDispatchToProps = dispatch => ({
+  sortLineItems,
+  dispatch
+});
+
+export default connect(null, mapDispatchToProps)(LineItemList);

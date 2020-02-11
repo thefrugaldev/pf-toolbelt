@@ -18,7 +18,33 @@ export default function lineItemReducer(
       return action.lineItems;
     case actionTypes.DELETE_LINE_ITEM_OPTIMISTIC:
       return state.filter(lineItem => lineItem._id !== action.lineItem._id);
+    case actionTypes.SORT_LINE_ITEMS:
+      return [...state].sort(compareItems(action.key));
     default:
       return state;
   }
 }
+
+const compareItems = (key, order = "asc") => {
+  return function innerSort(a, b) {
+    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+      //prop doesn't exist on either object
+      return 0;
+    }
+
+    const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
+    const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+
+    let comparison = 0;
+    if (varA > varB) {
+      comparison = 1;
+    } else if (varA < varB) {
+      comparison = -1;
+    }
+    const res = order === "desc" ? comparison * -1 : comparison;
+
+    console.log(res);
+
+    return res;
+  };
+};

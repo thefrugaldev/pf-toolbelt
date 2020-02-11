@@ -13,11 +13,26 @@ const LineItemList = ({ lineItems, onDeleteClick, dispatch }) => {
   const [activeModal, setActiveModal] = useState(false);
   const [modalTitle, setModalTitle] = useState();
   const [modalBody, setModalBody] = useState();
+  const [sortedProperty, setSortedProperty] = useState("");
 
   const handleInfoClick = budget => {
     setModalTitle(budget.title);
     setModalBody(budget.description);
     setActiveModal(true);
+  };
+
+  const sortByType = key => {
+    key === sortedProperty ? sortDescending(key) : sortAscending(key);
+  };
+
+  const sortAscending = key => {
+    dispatch(sortLineItems(key));
+    setSortedProperty(key);
+  };
+
+  const sortDescending = key => {
+    dispatch(sortLineItems(key, "desc"));
+    setSortedProperty("");
   };
 
   return (
@@ -39,10 +54,10 @@ const LineItemList = ({ lineItems, onDeleteClick, dispatch }) => {
       <table className="table is-fullwidth">
         <thead>
           <tr>
-            <th onClick={() => dispatch(sortLineItems("title"))}>Title</th>
+            <th onClick={() => sortByType("title")}>Title</th>
             <th>Category</th>
-            <th>Amount</th>
-            <th>Date</th>
+            <th onClick={() => sortByType("amount")}>Amount</th>
+            <th onClick={() => sortByType("date")}>Date</th>
             <th>Notes</th>
             <th />
           </tr>

@@ -19,7 +19,7 @@ export default function lineItemReducer(
     case actionTypes.DELETE_LINE_ITEM_OPTIMISTIC:
       return state.filter(lineItem => lineItem._id !== action.lineItem._id);
     case actionTypes.SORT_LINE_ITEMS:
-      return [...state].sort(compareItems(action.key));
+      return [...state].sort(compareItems(action.key, action.order));
     default:
       return state;
   }
@@ -32,6 +32,8 @@ const compareItems = (key, order = "asc") => {
       return 0;
     }
 
+    console.log(typeof a[key]);
+
     const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
     const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
 
@@ -42,8 +44,6 @@ const compareItems = (key, order = "asc") => {
       comparison = -1;
     }
     const res = order === "desc" ? comparison * -1 : comparison;
-
-    console.log(res);
 
     return res;
   };

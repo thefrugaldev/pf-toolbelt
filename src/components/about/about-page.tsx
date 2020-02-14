@@ -1,6 +1,7 @@
-import React from "react";
+import * as React from "react";
+import { FC } from "react";
 
-const AboutPage = () => (
+const AboutPage: FC<{}> = () => (
   <div>
     <h2>About</h2>
     <p>

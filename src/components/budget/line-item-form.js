@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import TextInput from "../common/forms/text-input";
 import SelectInput from "../common/forms/select-input";
 import TextArea from "../common/forms/text-area";
-import DateInput from "../common/forms/date-input";
+import DateInput from "../common/forms/date-input.tsx";
 
 const LineItemForm = ({
   lineItem,

@@ -1,13 +1,13 @@
-import React, { useLayoutEffect, useState } from "react";
+import * as React from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
 import { getAuthenticationStatus } from "../../auth/auth-service";
 // Redux
 import { connect } from "react-redux";
-import { logout, fetchUser } from "../../redux/actions/firebase-actions";
+import { logout } from "../../redux/actions/firebase-actions";
 import { toast } from "react-toastify";
 
-const Header = ({ logout }) => {
+const Header: FC<{ logout: Function }> = ({ logout }) => {
   const activeStyle = { color: "#F15B2A" };
   const handleLogout = event => {
     event.preventDefault();
@@ -15,7 +15,7 @@ const Header = ({ logout }) => {
     toast.success("Logout successful");
   };
 
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>();
 
   useLayoutEffect(() => {
     setIsAuthenticated(getAuthenticationStatus());
@@ -75,14 +75,4 @@ const Header = ({ logout }) => {
   );
 };
 
-Header.propTypes = {
-  currentUser: PropTypes.object,
-  logout: PropTypes.func.isRequired,
-  history: PropTypes.object
-};
-
-const mapStateToProps = ({ currentUser }) => {
-  return { currentUser };
-};
-
-export default connect(mapStateToProps, { logout, fetchUser })(Header);
+export default connect(null, { logout })(Header);

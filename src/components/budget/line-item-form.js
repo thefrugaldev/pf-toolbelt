@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 // Components
-import TextInput from "../common/forms/text-input";
-import SelectInput from "../common/forms/select-input";
-import TextArea from "../common/forms/text-area";
+import TextInput from "../common/forms/text-input.tsx";
+import SelectInput from "../common/forms/select-input.tsx";
+import TextArea from "../common/forms/text-area.tsx";
 import DateInput from "../common/forms/date-input.tsx";
 
 const LineItemForm = ({

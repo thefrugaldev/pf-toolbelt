@@ -75,4 +75,8 @@ const Header: FC<{ logout: Function }> = ({ logout }) => {
   );
 };
 
-export default connect(null, { logout })(Header);
+const mapStateToProps = ({ currentUser }) => {
+  return { currentUser };
+};
+
+export default connect(mapStateToProps, { logout })(Header);
